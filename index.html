@@ -45,9 +45,16 @@
     }
 
     .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
       font-family: 'Orbitron', sans-serif;
       color: var(--primary);
-      letter-spacing: 2px;
+    }
+
+    .logo img {
+      width: 35px;
+      height: 35px;
     }
 
     nav a {
@@ -63,20 +70,36 @@
     }
 
     .hero {
-      text-align: center;
-      padding: 120px 20px;
-    }
+  text-align: center;
+}
 
-    .hero h2 {
-      font-family: 'Orbitron';
-      font-size: 2.8rem;
-      color: var(--primary);
-      margin-bottom: 10px;
-    }
+/* TOP PART WITH BACKGROUND */
+.hero-top {
+  padding: 100px 20px;
+  background: linear-gradient(rgba(10,10,15,0.7), rgba(10,10,15,0.9)),
+              url('hero-bg.jpg') center/cover no-repeat;
+}
 
-    .hero p {
-      opacity: 0.8;
-    }
+/* BOTTOM PART NORMAL */
+.hero-bottom {
+  padding: 40px 20px;
+}
+
+.hero h2 {
+  font-family: 'Orbitron';
+  font-size: 2.8rem;
+  color: var(--primary);
+  margin-bottom: 5px;
+}
+
+.subtitle {
+  opacity: 0.7;
+  font-size: 0.9rem;
+}
+
+.hero p {
+  opacity: 0.85;
+}
 
     .section {
       padding: 70px 20px;
@@ -93,28 +116,6 @@
       color: var(--primary);
     }
 
-    .cards {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      margin-top: 25px;
-      flex-wrap: wrap;
-    }
-
-    .card {
-      background: var(--card);
-      padding: 20px;
-      border: 1px solid var(--primary);
-      width: 220px;
-      transition: 0.3s;
-      border-radius: 8px;
-    }
-
-    .card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 0 15px var(--primary);
-    }
-
     .btn {
       display: inline-block;
       margin-top: 20px;
@@ -128,35 +129,6 @@
 
     .btn:hover {
       box-shadow: 0 0 12px var(--primary);
-    }
-
-    .form input {
-      display: block;
-      margin: 10px auto;
-      padding: 10px;
-      width: 250px;
-      background: #1a1a22;
-      border: 1px solid var(--primary);
-      color: white;
-      border-radius: 5px;
-    }
-
-    .footer {
-      text-align: center;
-      padding: 20px;
-      border-top: 1px solid var(--primary);
-      margin-top: 40px;
-    }
-
-    .select {
-      display: block;
-      margin: 10px auto;
-      padding: 10px;
-      width: 250px;
-      background: #1a1a22;
-      border: 1px solid var(--primary);
-      color: white;
-      border-radius: 5px;
     }
 
     .announcement-box {
@@ -187,18 +159,27 @@
       font-weight: bold;
       color: #fff;
     }
+
+    .footer {
+      text-align: center;
+      padding: 20px;
+      border-top: 1px solid var(--primary);
+      margin-top: 40px;
+    }
   </style>
 </head>
 <body>
 
 <header class="header">
   <div class="nav">
-    <h1 class="logo">IS NEXUS</h1>
+    <div class="logo">
+      <img src="iss-logo.png" alt="ISS Logo">
+      <span>IS NEXUS</span>
+    </div>
     <nav>
       <a href="#home">Home</a>
       <a href="about.html">About</a>
       <a href="events.html">Events</a>
-      <a href="#join">Membership</a>
       <a href="#contact">Contact</a>
       <a href="#announcements">Announcements</a>
     </nav>
@@ -206,9 +187,17 @@
 </header>
 
 <section id="home" class="hero">
-  <h2>Information Systems Society</h2>
-  <p>Your cental hub for IS students—events, opportunities, and involvement.</p>
-  <a href="#events" class="btn">View Events</a>
+
+  <div class="hero-top">
+    <h2>IS Nexus</h2>
+    <p class="subtitle">Information Systems Society</p>
+  </div>
+
+  <div class="hero-bottom">
+    <p>Your central hub for IS students—events, opportunities, and involvement.</p>
+    <a href="events.html" class="btn">View Events</a>
+  </div>
+
 </section>
 
 <section id="about" class="section">
@@ -226,66 +215,8 @@
       The Information Systems Society elections are coming up.
       Participate and help shape the future of the organization.
     </p>
-    <a href="#join" class="btn">Get Involved</a>
+    <a href="events.html" class="btn">Get Involved</a>
   </div>
-</section>
-
-<section id="events" class="section alt">
-  <h3>Events</h3>
-  <div class="cards">
-    <div class="card">
-      <h4>Tech Talk</h4>
-      <p>May 2, 2026</p>
-    </div>
-    <div class="card">
-      <h4>Outreach</h4>
-      <p>May 16, 2026</p>
-    </div>
-    <div class="card">
-      <h4>Showcase</h4>
-      <p>June 5, 2026</p>
-    </div>
-  </div>
-
-  <form id="registration" class="form">
-    <input type="text" placeholder="Full Name" required>
-    <input type="email" placeholder="Email" required>
-
-    <select required class="select">
-      <option value="">Select Event</option>
-      <option>Tech Talk</option>
-      <option>Outreach</option>
-      <option>Showcase</option>
-    </select>
-
-    <select required class="select">
-      <option value="">Year Level</option>
-      <option>1st Year</option>
-      <option>2nd Year</option>
-      <option>3rd Year</option>
-      <option>4th Year</option>
-    </select>
-
-    <button class="btn">Register</button>
-  </form>
-</section>
-
-<section id="projects" class="section">
-  <h3>Projects</h3>
-  <div class="cards">
-    <div class="card">Digital Skills Camp</div>
-    <div class="card">Mentorship Program</div>
-    <div class="card">Innovation Challenge</div>
-  </div>
-</section>
-
-<section id="join" class="section alt">
-  <h3>Membership Application Program</h3>
-  <form class="form">
-    <input type="text" placeholder="Full Name" required>
-    <input type="email" placeholder="Email" required>
-    <button class="btn">Apply</button>
-  </form>
 </section>
 
 <section id="contact" class="section">
