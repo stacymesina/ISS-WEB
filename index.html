@@ -90,6 +90,14 @@
   margin-bottom: 5px;
 }
 
+.hero-top {
+  padding: 140px 20px;
+}
+
+.hero h2 {
+  text-shadow: 0 0 15px rgba(255, 122, 0, 0.6);
+}
+
 .subtitle {
   opacity: 0.7;
   font-size: 0.9rem;
@@ -129,41 +137,179 @@
       box-shadow: 0 0 12px var(--primary);
     }
 
-    .announcement-box {
-      max-width: 600px;
-      margin: 30px auto;
-      padding: 40px;
-      background: var(--card);
-      border: 2px solid var(--primary);
-      border-radius: 12px;
-      text-align: center;
-      box-shadow: 0 0 20px rgba(255, 122, 0, 0.3);
-      transition: 0.3s;
-    }
+  .announcement-container {
+  max-width: 600px;
+  margin: 30px auto;
+  overflow: hidden;
+  position: relative;
+  border-radius: 12px;
+}
 
-    .announcement-box:hover {
-      box-shadow: 0 0 30px var(--primary);
-      transform: scale(1.02);
-    }
+.announcement-slider {
+  display: flex;
+  width: 100%;
+  will-change: transform;
+  transition: transform 0.6s ease-in-out;
+} 
 
-    .announcement-box h2 {
-      font-family: 'Orbitron';
-      color: var(--primary);
-      font-size: 1.8rem;
-    }
+.announcement-slide {
+  flex: 0 0 100%;
+  width: 100%;
+  box-sizing: border-box;
 
-    .announcement-box .date {
-      margin: 10px 0;
-      font-weight: bold;
-      color: #fff;
-    }
+  padding: 40px;
+  background: var(--card);
+  border: 2px solid var(--primary);
+  border-radius: 12px;
 
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  gap: 10px;
+  min-height: 260px;
+
+  text-align: center;
+}
+
+.announcement-slide:hover {
+  box-shadow: 0 0 30px var(--primary);
+  transform: scale(1.02);
+}
+
+.announcement-slide h2 {
+  font-family: 'Orbitron';
+  color: var(--primary);
+  font-size: 1.8rem;
+}
+
+.announcement-slide .date {
+  margin: 10px 0;
+  font-weight: bold;
+  color: #fff;
+}
+
+.announcement-slide {
+  min-width: 100%;
+  flex-shrink: 0;
+  padding: 40px;
+  background: var(--card);
+  border: 2px solid var(--primary);
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 0 20px rgba(255, 122, 0, 0.3);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+
+  min-height: 260px;
+  box-sizing: border-box;
+}
+
+.announcement-slide h2,
+.announcement-slide p {
+  max-width: 90%;
+  word-break: normal;
+  overflow-wrap: break-word;
+  line-height: 1.5;
+}
+
+.dots {
+  display: flex;
+  justify-content: center;
+  margin-top: 15px;
+  gap: 8px;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(255, 122, 0, 0.3);
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.dot:hover {
+  transform: scale(1.3);
+  background: var(--primary);
+}
+
+.dot.active {
+  background: var(--primary);
+  box-shadow: 0 0 10px var(--primary);
+}
+
+.announcement-slider {
+  display: flex;
+  transition: transform 0.6s ease-in-out;
+}
     .footer {
       text-align: center;
       padding: 20px;
       border-top: 1px solid var(--primary);
       margin-top: 40px;
     }
+
+    .tagline {
+ 	 margin-top: 10px;
+	 opacity: 0.85;
+	}
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: 180px;
+  gap: 12px;
+  max-width: 1000px;
+  margin: 20px auto;
+}
+
+.gallery-item {
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: 0.3s;
+}
+
+.gallery-item:hover img {
+  transform: scale(1.05);
+}
+
+.gallery-item span {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  background: rgba(0,0,0,0.5);
+  padding: 5px 10px;
+  font-size: 0.8rem;
+  border-radius: 5px;
+  color: white;
+}
+
+.large {
+  grid-column: span 2;
+  grid-row: span 2;
+}
+
+.tall {
+  grid-row: span 2;
+}
+
+.wide {
+  grid-column: span 2;
+}
+  
   </style>
 </head>
 <body>
@@ -178,9 +324,9 @@
       <a href="#home">Home</a>
       <a href="about.html">About</a>
       <a href="events.html">Events</a>
+      <a href="membership.html">Membership</a>
       <a href="#contact">Contact</a>
-      <a href="#announcements">Announcements</a>
-    </nav>
+     </nav>
   </div>
 </header>
 
@@ -188,34 +334,80 @@
 
   <div class="hero-top">
     <h2>IS Nexus</h2>
-    <p class="subtitle">Information Systems Society</p>
-  </div>
-
-  <div class="hero-bottom">
-    <p>Your central hub for IS students—events, opportunities, and involvement.</p>
-    <a href="events.html" class="btn">View Events</a>
+    <p class="subtitle">Official Platform of UST Information Systems Society</p>
+    <p class="tagline">Your central hub for IS students—events, opportunities, and involvement.</p>
   </div>
 
 </section>
 
-<section id="about" class="section">
-  <h3>About IS Nexus</h3>
-  <p>IS Nexus is the central hub for IS students and members to access events, updates, and opportunities to get involved.</p>
+<section id="gallery" class="section">
+  <h3>ISS Archives</h3>
+
+  <div class="gallery">
+    <div class="gallery-item large">
+      <img src="img1.jpg" alt="">
+      <span>ISS General Assembly</span>
+    </div>
+
+    <div class="gallery-item">
+      <img src="img2.jpg" alt="">
+      <span>IS Night</span>
+    </div>
+
+    <div class="gallery-item">
+      <img src="img3.jpg" alt="">
+      <span>Escape Room</span>
+    </div>
+
+    <div class="gallery-item tall">
+      <img src="img4.jpg" alt="">
+      <span>Sportsfest</span>
+    </div>
+
+    <div class="gallery-item">
+      <img src="img5.jpg" alt="">
+      <span>The Tribute's Table</span>
+    </div>
+
+    <div class="gallery-item">
+      <img src="img6.jpg" alt="">
+      <span>Speed-Typing Contest</span>
+    </div>
+
+    <div class="gallery-item wide">
+      <img src="img7.jpg" alt="">
+      <span>Act-Off!</span>
+    </div>
+
+    <div class="gallery-item">
+      <img src="img8.jpg" alt="">
+      <span>Speed Typing Contest</span>
+    </div>
+
+    <div class="gallery-item">
+      <img src="img9.jpg" alt="">
+      <span>Uno</span>
+    </div>
+
+     <div class="gallery-item">
+      <img src="img10.jpg" alt="">
+      <span>Tetris</span>
+    </div>
+
+  </div>
 </section>
 
 <section id="announcements" class="section alt">
   <h3>Announcements</h3>
+	<div class="announcement-container">
 
-  <div class="announcement-box">
-    <h2>ISS Elections 2026</h2>
-    <p class="date">April 21 – 24, 2026</p>
-    <p>
-      The Information Systems Society elections are coming up.
-      Participate and help shape the future of the organization.
-    </p>
-    <a href="events.html" class="btn">Get Involved</a>
+  <div class="announcement-slider" id="slider">
+
   </div>
-</section>
+
+  <div class="dots" id="dots"></div>
+
+</div></section>
 
 <section id="contact" class="section">
   <h3>Contact</h3>
@@ -228,5 +420,84 @@
   <p>© 2026 IS Nexus — Information Systems Society</p>
 </footer>
 
+<script>
+const announcements = [
+  {
+    title: "ISS Elections 2026",
+    date: "April 21 – 24, 2026",
+    desc: "Participate and help shape the future of the organization."
+  },
+  {
+    title: "The Hufflepuff Summit: A Project Management Seminar",
+    date: "May 7, 2026",
+    desc: "A seminar designed to introduce IS students to the fundamentals of project management, bridging theory and real-world application through practical tools and industry insights."
+  },
+  {
+    title: "The Broken Spell: Escape from Azka-bug",
+    date: "May 7, 2026",
+    desc: "An interactive, code-themed escape room where participants solve programming and logic challenges to fix a corrupted system within a limited time."
+  },
+  {
+    title: "The Sorcerer's Network: Illuminating the Future of Information Systems Colloquium 2026",
+    date: "May 8, 2026",
+    desc: "A culminating event where fourth-year IS students present and defend their capstone projects, showcasing their research, technical skills, and readiness for the professional world."
+  }
+];
+
+const slider = document.getElementById("slider");
+const dotsContainer = document.getElementById("dots");
+
+announcements.forEach((a) => {
+  const slide = document.createElement("div");
+  slide.classList.add("announcement-slide");
+  slide.innerHTML = `
+    <h2>${a.title}</h2>
+    <p class="date">${a.date}</p>
+    <p>${a.desc}</p>
+  `;
+  slider.appendChild(slide);
+});
+
+const slides = document.querySelectorAll(".announcement-slide");
+let currentIndex = 0;
+
+slides.forEach((_, index) => {
+  const dot = document.createElement("span");
+  dot.classList.add("dot");
+  if (index === 0) dot.classList.add("active");
+
+  dot.addEventListener("click", () => {
+    currentIndex = index;
+    updateSlider();
+  });
+
+  dotsContainer.appendChild(dot);
+});
+
+function updateSlider() {
+  slider.style.transform = `translateX(-${currentIndex * 100}%)`;
+
+  document.querySelectorAll(".dot").forEach((dot, i) => {
+    dot.classList.toggle("active", i === currentIndex);
+  });
+}
+
+let interval = setInterval(nextSlide, 4000);
+
+function nextSlide() {
+  currentIndex = (currentIndex + 1) % announcements.length;
+  updateSlider();
+}
+
+const container = document.querySelector(".announcement-container");
+
+container.addEventListener("mouseenter", () => {
+  clearInterval(interval);
+});
+
+container.addEventListener("mouseleave", () => {
+  interval = setInterval(nextSlide, 4000);
+});
+</script>
 </body>
 </html>
