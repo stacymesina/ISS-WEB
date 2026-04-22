@@ -27,7 +27,6 @@ body {
   color: var(--text);
 }
 
-/* NAVBAR */
 .header {
   position: sticky;
   top: 0;
@@ -217,7 +216,7 @@ footer {
       <option>4th Year</option>
     </select>
 
-    <select id="team" onchange="updateCommittees()" required>
+<select id="team" onchange="updateCommittees()" required>
   <option value="" disabled selected hidden>Team</option>
   <option value="president">Team President</option>
   <option value="ivp">Team Internal Vice President</option>
@@ -260,14 +259,25 @@ footer {
     </div>
 
     <div class="benefit-card">
-      <div class="benefit-img">
-        <img src="front.png" alt="ISS Membership Card">
-      </div>
-      <div class="benefit-text">
-        <h4>Membership Card Discounts</h4>
-        <p>Enjoy exclusive discounts from partnered establishments and organizations using your ISS membership card.</p>
-      </div>
+  <div class="benefit-img">
+    
+    <div style="text-align:center; margin-bottom:10px;">
+      <img src="front.png" alt="ISS Card Front">
+      <p style="font-size:0.8rem; opacity:0.8;">Front</p>
     </div>
+
+    <div style="text-align:center;">
+      <img src="back.jpg" alt="ISS Card Back">
+      <p style="font-size:0.8rem; opacity:0.8;">Back</p>
+    </div>
+
+  </div>
+
+  <div class="benefit-text">
+    <h4>Membership Card Discounts</h4>
+    <p>Enjoy exclusive discounts from partnered establishments and organizations using your ISS membership card.</p>
+  </div>
+</div>
 
   </div>
 </section>
