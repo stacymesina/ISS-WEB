@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Membership — IS Nexus</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --primary: #ff7a00;
+  --bg: #0a0a0f;
+  --card: #14141c;
+  --text: #eaeaf0;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+/* NAVBAR */
+.header {
+  position: sticky;
+  top: 0;
+  background: rgba(10,10,15,0.9);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--primary);
+}
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 30px;
+}
+
+.logo {
+  font-family: 'Orbitron';
+  color: var(--primary);
+}
+
+nav a {
+  margin: 0 10px;
+  color: var(--text);
+  text-decoration: none;
+}
+
+nav a:hover {
+  color: var(--primary);
+}
+
+/* PAGE TITLE */
+.title {
+  text-align: center;
+  margin: 50px 0 20px;
+  font-family: 'Orbitron';
+  font-size: 2rem;
+  color: var(--primary);
+}
+
+/* FORM */
+.form-container {
+  max-width: 500px;
+  margin: auto;
+  background: var(--card);
+  padding: 30px;
+  border-radius: 12px;
+  border: 1px solid var(--primary);
+}
+
+input, select {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  background: #1a1a22;
+  border: 1px solid var(--primary);
+  color: white;
+  border-radius: 5px;
+}
+
+.btn {
+  width: 100%;
+  padding: 10px;
+  background: var(--primary);
+  border: none;
+  color: black;
+  font-weight: bold;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+.btn:hover {
+  box-shadow: 0 0 10px var(--primary);
+}
+
+footer {
+  text-align: center;
+  padding: 20px;
+  margin-top: 40px;
+  border-top: 1px solid var(--primary);
+}
+
+  .card img {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+  border-radius: 6px;
+  margin-bottom: 10px;
+  border: 1px solid var(--primary);
+}
+
+  .card {
+  width: 260px;
+}
+
+  .benefits {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 800px;
+  margin: 30px auto;
+}
+
+.benefit-card {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  background: var(--card);
+  border: 1px solid var(--primary);
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 0 15px rgba(255, 122, 0, 0.15);
+  transition: 0.3s;
+}
+
+.benefit-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 25px rgba(255, 122, 0, 0.4);
+}
+
+.benefit-img img {
+  width: 180px;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 1px solid var(--primary);
+}
+
+.benefit-text h4 {
+  color: var(--primary);
+  font-family: 'Orbitron';
+  margin-bottom: 8px;
+}
+
+.benefit-text p {
+  opacity: 0.85;
+  font-size: 0.95rem;
+}
+
+  .section-title {
+  text-align: center;
+  font-family: 'Orbitron';
+  color: var(--primary);
+  font-size: 1.8rem;
+  margin-bottom: 25px;
+  text-shadow: 0 0 10px rgba(255, 122, 0, 0.4);
+}
+
+  .section.alt {
+  text-align: center;
+}
+
+  #membership-benefits {
+  margin-top: 80px;
+}
+
+</style>
+</head>
+
+<body>
+
+<header class="header">
+  <div class="nav">
+    <div class="logo">IS NEXUS</div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="events.html">Events</a>
+      <a href="membership.html">Membership</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<h1 class="title">ISS Application Form</h1>
+
+<div class="form-container">
+  <form>
+    <input type="text" placeholder="Full Name" required>
+
+    <input type="email" placeholder="UST Email" required>
+
+    <select required>
+      <option value="" disabled selected hidden>Year Level</option>
+      <option>1st Year</option>
+      <option>2nd Year</option>
+      <option>3rd Year</option>
+      <option>4th Year</option>
+    </select>
+
+    <select id="team" onchange="updateCommittees()" required>
+  <option value="" disabled selected hidden>Team</option>
+  <option value="president">Team President</option>
+  <option value="ivp">Team Internal Vice President</option>
+  <option value="evp">Team External Vice President</option>
+  <option value="secretary">Team Secretary</option>
+  <option value="treasurer">Team Treasurer</option>
+  <option value="auditor">Team Auditor</option>
+  <option value="pro">Team PRO</option>
+  <option value="cos">Team COS</option>
+</select>
+
+<select id="committee" required>
+  <option value="" disabled selected hidden>Committee</option>
+</select>
+
+    <select id="role" onchange="toggleRole()" required>
+  <option value="" disabled selected hidden>Role</option>
+  <option value="member">Member</option>
+  <option value="staff">Staff</option>
+  <option value="ea">Executive Assistant</option>
+  <option value="eb">Executive Board</option>
+</select>
+
+    <button class="btn">Submit Application</button>
+  </form>
+</div>
+
+<section id="membership-benefits" class="section alt">
+  <h3 class="section-title">Membership Benefits</h3>
+  <div class="benefits">
+
+    <div class="benefit-card">
+      <div class="benefit-img">
+        <img src="iss-lanyard.png" alt="ISS ID Lace">
+      </div>
+      <div class="benefit-text">
+        <h4>ISS ID Lace</h4>
+        <p>Official identification lace representing your membership in the organization.</p>
+      </div>
+    </div>
+
+    <div class="benefit-card">
+      <div class="benefit-img">
+        <img src="membership-card.jpg" alt="ISS Membership Card">
+      </div>
+      <div class="benefit-text">
+        <h4>Membership Card Discounts</h4>
+        <p>Enjoy exclusive discounts from partnered establishments and organizations using your ISS membership card.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  © 2026 IS Nexus — Information Systems Society
+</footer>
+<script>
+const committeeData = {
+  president: ["Productions Committee", "Technical Operations Committee", "Talents Committee"],
+  ivp: ["Internal Partnerships Committee", "Community Development Committee"],
+  evp: ["Sponsorships Committee", "Partnerships Committee"],
+  secretary: ["Academics Committee", "Documents Committee"],
+  treasurer: ["Finance Committee"],
+  auditor: ["Audit and Logistics Committee"],
+  pro: ["Creatives Committee", "Video Contents Committee", "Documentation Committee"],
+  cos: ["Student Relations Committee"]
+};
+
+function updateCommittees() {
+  const team = document.getElementById("team").value;
+  const committee = document.getElementById("committee");
+
+  committee.innerHTML = `<option value="">Committee</option>`;
+
+  if (committeeData[team]) {
+    committeeData[team].forEach(c => {
+      const opt = document.createElement("option");
+      opt.textContent = c;
+      committee.appendChild(opt);
+    });
+  }
+}
+
+function toggleRole() {
+  const role = document.getElementById("role").value;
+  const team = document.getElementById("team");
+  const committee = document.getElementById("committee");
+
+  if (role === "member") {
+    team.disabled = true;
+    committee.disabled = true;
+  } else {
+    team.disabled = false;
+    committee.disabled = false;
+  }
+}
+</script>
+</body>
+</html>
