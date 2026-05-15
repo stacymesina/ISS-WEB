@@ -79,6 +79,8 @@ function renderAnnouncementEditor() {
       <input type="text" data-ann-title="${i}" value="${escapeAttr(a.title)}">
       <label>Date</label>
       <input type="text" data-ann-date="${i}" value="${escapeAttr(a.date)}">
+      <label>Image filename (e.g. img1.jpg)</label>
+      <input type="text" data-ann-image="${i}" value="${escapeAttr(a.image || "")}">
       <label>Description</label>
       <textarea rows="3" data-ann-desc="${i}">${escapeAttr(a.desc)}</textarea>
       <button type="button" class="btn" data-remove-ann="${i}" style="margin-top:8px;background:#444;color:#fff;">Remove</button>
@@ -92,7 +94,7 @@ function renderAnnouncementEditor() {
   container.querySelectorAll("[data-ann-date]").forEach((el) => {
     el.addEventListener("input", () => syncAnnouncementsFromDom());
   });
-  container.querySelectorAll("[data-ann-desc]").forEach((el) => {
+  container.querySelectorAll("[data-ann-desc], [data-ann-image]").forEach((el) => {
     el.addEventListener("input", () => syncAnnouncementsFromDom());
   });
   container.querySelectorAll("[data-remove-ann]").forEach((btn) => {
@@ -111,6 +113,7 @@ function syncAnnouncementsFromDom() {
     return {
       title: el.value,
       date: document.querySelector(`[data-ann-date="${i}"]`).value,
+      image: document.querySelector(`[data-ann-image="${i}"]`)?.value || "",
       desc: document.querySelector(`[data-ann-desc="${i}"]`).value,
     };
   });
@@ -174,7 +177,7 @@ function bindEvents() {
 
   document.getElementById("add-announcement").addEventListener("click", () => {
     syncAnnouncementsFromDom();
-    draftConfig.announcements.push({ title: "New Event", date: "", desc: "" });
+    draftConfig.announcements.push({ title: "New Event", date: "", desc: "", image: "" });
     renderAnnouncementEditor();
   });
 
