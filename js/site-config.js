@@ -10,12 +10,15 @@ const SiteConfig = (() => {
   async function load() {
     if (config) return config;
 
-    let base = {};
+    let base =
+      typeof SITE_DEFAULTS !== "undefined"
+        ? JSON.parse(JSON.stringify(SITE_DEFAULTS))
+        : {};
     try {
       const res = await fetch("data/site-config.json?t=" + Date.now());
       if (res.ok) base = await res.json();
     } catch (_) {
-      /* file:// or missing file — use empty base */
+      /* file:// or offline — keep SITE_DEFAULTS */
     }
 
     const stored = localStorage.getItem(STORAGE_KEY);
