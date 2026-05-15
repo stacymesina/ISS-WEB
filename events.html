@@ -1,63 +1,523 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Events — IS Nexus</title>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Inter:wght@300;400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/site.css">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --primary: #ff7a00;
+      --bg: #0a0a0f;
+      --card: #14141c;
+      --text: #eaeaf0;
+      --muted: #b8bcc7;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: "Inter", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    .header {
+      position: sticky;
+      top: 0;
+      background: rgba(10, 10, 15, 0.9);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--primary);
+      z-index: 1000;
+    }
+
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 30px;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      font-family: "Orbitron", sans-serif;
+      color: var(--primary);
+      letter-spacing: 2px;
+      text-decoration: none;
+      font-size: 1.4rem;
+      white-space: nowrap;
+    }
+
+    nav a {
+      margin: 0 10px;
+      color: var(--text);
+      text-decoration: none;
+      transition: 0.3s;
+      font-size: 0.95rem;
+    }
+
+    nav a:hover {
+      color: var(--primary);
+      text-shadow: 0 0 5px var(--primary);
+    }
+
+    .events-page {
+      padding: 40px 20px;
+    }
+
+    .events-wrapper {
+      max-width: 1100px;
+      margin: 0 auto;
+      background: #111;
+      border: 1px solid var(--primary);
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(255, 122, 0, 0.2);
+      padding: 28px 24px 32px;
+    }
+
+    .title {
+      text-align: center;
+      font-family: "Orbitron", sans-serif;
+      font-size: 28px;
+      font-weight: 500;
+      color: var(--primary);
+      margin-bottom: 24px;
+    }
+
+    .sub-title {
+      text-align: left;
+      font-family: "Orbitron", sans-serif;
+      font-size: 20px;
+      font-weight: 500;
+      color: var(--primary);
+      margin: 8px 0 8px;
+    }
+
+    .sub-title-link {
+      color: var(--primary);
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .sub-title-link:hover {
+      text-shadow: 0 0 6px var(--primary);
+    }
+
+    .hint {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 18px;
+    }
+
+    .events-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .section-gap {
+      margin-top: 36px;
+      padding-top: 24px;
+      border-top: 1px solid rgba(255, 122, 0, 0.35);
+    }
+
+    .event-card {
+      background: var(--card);
+      border: 1px solid var(--primary);
+      border-radius: 8px;
+      overflow: hidden;
+      transition: 0.3s;
+    }
+
+    .event-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 0 15px rgba(255, 122, 0, 0.5);
+    }
+
+    .event-card.clickable {
+      cursor: pointer;
+    }
+
+    .event-image {
+      width: 100%;
+      height: 185px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .event-content {
+      padding: 14px 12px 16px;
+    }
+
+    .event-title {
+      font-size: 15px;
+      line-height: 1.45;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 10px;
+    }
+
+    .event-meta {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: 10px;
+    }
+
+    .event-meta .date {
+      color: var(--primary);
+      font-weight: 700;
+    }
+
+    .event-desc {
+      font-size: 13px;
+      line-height: 1.6;
+      color: #d6d9e2;
+    }
+
+    .register-cta {
+      text-align: center;
+      margin-top: 24px;
+    }
+
+    .btn {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 10px 20px;
+      background: var(--primary);
+      color: black;
+      text-decoration: none;
+      border: none;
+      border-radius: 5px;
+      transition: 0.3s;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .btn:hover {
+      box-shadow: 0 0 12px var(--primary);
+    }
+
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.7);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      z-index: 2000;
+    }
+
+    .modal-overlay.show {
+      display: flex;
+    }
+
+    .modal-box {
+      width: 100%;
+      max-width: 420px;
+      background: #111;
+      border: 1px solid var(--primary);
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(255, 122, 0, 0.3);
+      padding: 22px 18px 18px;
+      position: relative;
+    }
+
+    .modal-box h3 {
+      font-family: "Orbitron", sans-serif;
+      color: var(--primary);
+      margin-bottom: 14px;
+      text-align: center;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 8px;
+      right: 10px;
+      background: transparent;
+      border: none;
+      color: var(--text);
+      font-size: 24px;
+      cursor: pointer;
+    }
+
+    .modal-form input,
+    .modal-form select {
+      display: block;
+      width: 100%;
+      margin: 10px 0;
+      padding: 10px;
+      background: #1a1a22;
+      border: 1px solid var(--primary);
+      color: #fff;
+      border-radius: 5px;
+    }
+
+    .footer {
+      text-align: center;
+      padding: 20px;
+      border-top: 1px solid var(--primary);
+      margin-top: 40px;
+    }
+
+    @media (max-width: 1024px) {
+      .events-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 640px) {
+      .events-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .event-image {
+        height: 210px;
+      }
+
+      .nav {
+        justify-content: center;
+      }
+
+      nav {
+        text-align: center;
+      }
+
+      nav a {
+        display: inline-block;
+        margin: 6px 8px;
+      }
+    }
+  </style>
 </head>
 <body>
+  <header class="header">
+    <div class="nav">
+      <a href="index.html#home" class="logo">IS NEXUS</a>
+      <nav>
+        <a href="index.html#home">Home</a>
+        <a href="index.html#about">About</a>
+        <a href="events.html">Events</a>
+        <a href="membership.html">Membership</a>
+        <a href="index.html#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
 
-<header class="header">
-  <div class="nav">
-    <a href="index.html" class="logo"><span>IS NEXUS</span></a>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="about.html">About</a>
-      <a href="events.html">Events</a>
-      <a href="membership.html">Membership</a>
-      <a href="index.html#contact">Contact</a>
-    </nav>
+  <main class="events-page">
+    <section class="events-wrapper">
+      <h1 class="title">Events</h1>
+
+      <h2 class="sub-title">
+        <a href="#" class="sub-title-link" id="openRegisterFromTitle">Upcoming Events</a>
+      </h2>
+      <p class="hint">Click “Upcoming Events”, any upcoming event card, or “Register Now” to open the registration popup.</p>
+
+      <div class="events-grid">
+        <article class="event-card clickable">
+          <img src="event1.png" alt="The Hufflepuff Summit event poster" class="event-image" />
+          <div class="event-content">
+            <h3 class="event-title">The Hufflepuff Summit: A Project Management Seminar</h3>
+            <p class="event-meta">
+              <span class="date">May 7, 2026</span><br />
+              9AM - 12PM
+            </p>
+            <p class="event-desc">
+              This seminar focuses on equipping students with a substantive introduction to project management. In contemporary, project-oriented industries, the ability to plan, organize, and execute initiatives is essential.
+          </div>
+        </article>
+
+        <article class="event-card clickable">
+          <img src="event2.png" alt="The Broken Spell event poster" class="event-image" />
+          <div class="event-content">
+            <h3 class="event-title">The Broken Spell: Escape from Azka-bug</h3>
+            <p class="event-meta">
+              <span class="date">May 7, 2026</span><br />
+              1PM - 5PM
+            </p>
+            <p class="event-desc">
+               This event is an interactive, code-themed escape room designed for CICS Week 2026. It immerses participants in a wizarding-inspired scenario where a corrupted system must be repaired by solving a series of programming and logic-based challenges within a limited time.
+            </p>
+          </div>
+        </article>
+
+        <article class="event-card clickable">
+          <img src="event3.png" alt="The Sorcerer’s Network event poster" class="event-image" />
+          <div class="event-content">
+            <h3 class="event-title">The Sorcerer’s Network: Illuminating the Future of Information Systems Colloquium 2026</h3>
+            <p class="event-meta">
+              <span class="date">May 8, 2026</span><br />
+              8AM - 5PM
+            </p>
+            <p class="event-desc">
+              This IS Research Colloqium 2026 serves as the culminating academic activity for fourth-year IS students, providing a formal venue for presenting, defending, and evaluating their Capstone Projects. It fosters an environment of scholarly discourse where students can demonstrate their research, analytical, and technical skills. 
+            </p>
+          </div>
+        </article>
+      </div>
+
+      <div class="register-cta">
+        <button class="btn" id="openRegisterModal">Register Now</button>
+      </div>
+
+      <div class="section-gap">
+        <h2 class="sub-title">Event Archive</h2>
+        <div class="events-grid">
+          <article class="event-card">
+            <img src="pastEvent1.jpg" alt="Catching Codes: The Great IScape event poster"  class="event-image" />
+            <div class="event-content">
+              <h3 class="event-title">Catching Codes: The Great IScape</h3>
+              <p class="event-desc">
+                This event is an interactive escape room challenge designed for Information Systems students as part of IS Week.This activity integrates coding and logical problem-solving tasks, where participants must work individually or in teams to solve programming-related puzzles and “escape” within a set time limit.
+              </p>
+            </div>
+          </article>
+
+          <article class="event-card">
+            <img src="pastEvent3.jpg" alt="Mockingjay Rising event poster" class="event-image" />
+            <div class="event-content">
+              <h3 class="event-title">Mockingjay Rising: A Night of Fire and Song</h3>
+              <p class="event-desc">
+                A vibrant celebration blending music, performance, and community spirit. With fiery visuals and
+                energetic staging, this event showcased creativity and unity among IS students, making it a
+                memorable night of passion and talent.
+              </p>
+            </div>
+          </article>
+
+          <article class="event-card">
+            <img src="pastEvent4.jpg" alt="Clash of Districts event poster" class="event-image" />
+            <div class="event-content">
+              <h3 class="event-title">Clash of Districts: IS Sports Arena</h3>
+              <p class="event-desc">
+                A fiery sports competition that brought out the best in teamwork and rivalry. Featuring bold
+                serpent imagery, the event embodied strength, energy, and camaraderie as districts battled for
+                glory in a spirited athletic arena.
+              </p>
+            </div>
+          </article>
+
+          <article class="event-card">
+            <img src="pastEvent5.jpg" alt="Catching Minds quiz bee event poster" class="event-image" />
+            <div class="event-content">
+              <h3 class="event-title">Catching Minds: The Quiz Bee</h3>
+              <p class="event-desc">
+                An intellectual showdown where wit and knowledge took center stage. With its glowing light bulb
+                and clock imagery, the event symbolized the race against time and the spark of ideas, challenging
+                students to think fast and think smart.
+              </p>
+            </div>
+          </article>
+
+          <article class="event-card">
+            <img src="pastEvent6.jpg" alt="Odds of Victory: Esports event poster" class="event-image" />
+            <div class="event-content">
+              <h3 class="event-title">Odds of Victory: Esports</h3>
+              <p class="event-desc">
+                A competitive esports event designed for IS students to showcase their gaming skills, strategy, and teamwork in popular multiplayer games. Participants battle it out for victory, pride, and campus bragging rights.
+              </p>
+            </div>
+          </article>
+
+          <article class="event-card">
+            <img src="pastEvent7.jpg" alt="IS ACT-OFF! event poster" class="event-image" />
+            <div class="event-content">
+              <h3 class="event-title">IS ACT-OFF!</h3>
+              <p class="event-desc">
+                The IS Act-Off! event is designed to engage Information Systems students in a fun, interactive, and team-based activity that strengthens communication, creativity, and collaboration skills.
+              </p>
+            </div>
+          </article>
+          
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>© 2026 IS Nexus — Information Systems Society</p>
+  </footer>
+
+  <div id="registerModal" class="modal-overlay" aria-hidden="true">
+    <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="registerTitle">
+      <button class="modal-close" id="closeRegisterModal" aria-label="Close">&times;</button>
+      <h3 id="registerTitle">Event Registration</h3>
+
+      <form class="modal-form">
+        <input type="text" placeholder="Full Name" required />
+        <input type="email" placeholder="UST Email" required />
+       <select required>
+  <option value="" disabled selected hidden>Department</option>
+  <option>Information Systems</option>
+  <option>Information Technology</option>
+  <option>Computer Science</option>
+</select>
+
+<select required>
+  <option value="" disabled selected hidden>Year Level</option>
+  <option>1st Year</option>
+  <option>2nd Year</option>
+  <option>3rd Year</option>
+  <option>4th Year</option>
+</select>
+
+<select required>
+  <option value="" disabled selected hidden>Event</option>
+  <option>The Hufflepuff Summit: A Project Management Seminar</option>
+  <option>The Broken Spell: Escape from Azka-bug</option>
+  <option>The Sorcerer’s Network: Illuminating the Future of Information Systems Colloquium 2026</option>
+</select>
+
+        <button type="submit" class="btn">Submit Registration</button>
+      </form>
+    </div>
   </div>
-</header>
 
-<section class="section">
-  <h2 class="title" style="margin-top:40px;">Upcoming Events</h2>
-  <p style="max-width:640px;margin:0 auto 10px;opacity:0.85;line-height:1.6;">
-    Stay updated on ISS activities, seminars, and department events.
-  </p>
+  <script>
+    const openBtn = document.getElementById("openRegisterModal");
+    const closeBtn = document.getElementById("closeRegisterModal");
+    const modal = document.getElementById("registerModal");
+    const openFromTitle = document.getElementById("openRegisterFromTitle");
+    const clickableCards = document.querySelectorAll(".event-card.clickable");
 
-  <div id="events-list" class="events-grid">
-    <article class="event-card">
-      <h3>ISS Elections 2026</h3>
-      <p class="event-date">April 21 – 24, 2026</p>
-      <p class="event-desc">Participate and help shape the future of the organization.</p>
-    </article>
-    <article class="event-card">
-      <h3>The Hufflepuff Summit: A Project Management Seminar</h3>
-      <p class="event-date">May 7, 2026</p>
-      <p class="event-desc">A seminar designed to introduce IS students to the fundamentals of project management, bridging theory and real-world application through practical tools and industry insights.</p>
-    </article>
-    <article class="event-card">
-      <h3>The Broken Spell: Escape from Azka-bug</h3>
-      <p class="event-date">May 7, 2026</p>
-      <p class="event-desc">An interactive, code-themed escape room where participants solve programming and logic challenges to fix a corrupted system within a limited time.</p>
-    </article>
-    <article class="event-card">
-      <h3>The Sorcerer's Network: Illuminating the Future of Information Systems Colloquium 2026</h3>
-      <p class="event-date">May 8, 2026</p>
-      <p class="event-desc">A culminating event where fourth-year IS students present and defend their capstone projects, showcasing their research, technical skills, and readiness for the professional world.</p>
-    </article>
-  </div>
-</section>
+    function openModal() {
+      modal.classList.add("show");
+      modal.setAttribute("aria-hidden", "false");
+    }
 
-<footer class="footer">
-  <p>© 2026 IS Nexus — Information Systems Society</p>
-</footer>
+    function closeModal() {
+      modal.classList.remove("show");
+      modal.setAttribute("aria-hidden", "true");
+    }
 
-<script src="js/site-defaults.js"></script>
-<script src="js/site-config.js"></script>
-<script src="js/site-render.js"></script>
+    openBtn.addEventListener("click", openModal);
+    openFromTitle.addEventListener("click", (e) => {
+      e.preventDefault();
+      openModal();
+    });
+
+    clickableCards.forEach((card) => {
+      card.addEventListener("click", openModal);
+    });
+
+    closeBtn.addEventListener("click", closeModal);
+
+    modal.addEventListener("click", (e) => {
+      if (e.target === modal) closeModal();
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") closeModal();
+    });
+  </script>
 </body>
 </html>
