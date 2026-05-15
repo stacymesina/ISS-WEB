@@ -1,5 +1,13 @@
 let sliderInterval = null;
 
+document.addEventListener("DOMContentLoaded", () => {
+  const slides = document.querySelectorAll("#announcement-slider .announcement-slide");
+  const dots = document.getElementById("announcement-dots");
+  if (slides.length && dots && dots.children.length === 0) {
+    initAnnouncementSlider(slides.length);
+  }
+});
+
 function initAnnouncementSlider(count) {
   const slider = document.getElementById("announcement-slider");
   const dotsContainer = document.getElementById("announcement-dots");
