@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin — IS Nexus</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/site.css">
+</head>
+<body>
+
+<header class="header">
+  <div class="nav">
+    <a href="index.html" class="logo"><span>IS NEXUS Admin</span></a>
+    <nav>
+      <a href="index.html">View Site</a>
+    </nav>
+  </div>
+</header>
+
+<div id="admin-login" class="admin-login">
+  <h1 class="title" style="margin-top:0;font-size:1.4rem;">Admin Login</h1>
+  <form id="login-form">
+    <label for="admin-password">Password</label>
+    <input type="password" id="admin-password" required autocomplete="current-password">
+    <button type="submit" class="btn" style="width:100%;margin-top:16px;">Sign in</button>
+  </form>
+  <p id="login-error" class="field-error" style="margin-top:12px;"></p>
+  <p class="admin-hint">Default password is in <code>data/site-config.json</code>. Change it there after first login, then export and redeploy.</p>
+</div>
+
+<div id="admin-dashboard" class="admin-wrap" hidden>
+  <h1 class="title" style="text-align:left;margin-top:20px;">Site Admin</h1>
+  <p class="admin-hint">Edit content here without touching code. Click <strong>Save changes</strong> to apply in your browser, or <strong>Export config</strong> and replace <code>data/site-config.json</code> on your host so everyone sees the same settings.</p>
+
+  <div class="admin-panel">
+    <h2>R101 Membership Applications</h2>
+    <div class="toggle-row">
+      <input type="checkbox" id="r101-toggle">
+      <label for="r101-toggle">Open membership applications (<span id="r101-status" class="status-badge closed">CLOSED</span>)</label>
+    </div>
+    <label for="membership-fee-notice">Membership fee notice (shown on application form)</label>
+    <textarea id="membership-fee-notice" rows="4"></textarea>
+  </div>
+
+  <div class="admin-panel">
+    <h2>About page</h2>
+    <label for="about-vision">Vision</label>
+    <textarea id="about-vision" rows="4"></textarea>
+    <label for="about-mission">Mission</label>
+    <textarea id="about-mission" rows="4"></textarea>
+    <label for="about-paragraphs-edit">About paragraphs (one per line)</label>
+    <textarea id="about-paragraphs-edit" rows="5"></textarea>
+  </div>
+
+  <div class="admin-panel">
+    <h2>Home page — Hero</h2>
+    <label for="hero-title">Title</label>
+    <input type="text" id="hero-title">
+    <label for="hero-subtitle">Subtitle</label>
+    <input type="text" id="hero-subtitle">
+    <label for="hero-tagline">Tagline</label>
+    <input type="text" id="hero-tagline">
+  </div>
+
+  <div class="admin-panel">
+    <h2>Contact</h2>
+    <label for="contact-email">Email</label>
+    <input type="text" id="contact-email">
+    <label for="contact-facebook">Facebook</label>
+    <input type="text" id="contact-facebook">
+    <label for="contact-instagram">Instagram</label>
+    <input type="text" id="contact-instagram">
+  </div>
+
+  <div class="admin-panel">
+    <h2>Announcements</h2>
+    <div id="announcements-editor"></div>
+    <button type="button" id="add-announcement" class="btn" style="margin-top:12px;">Add announcement</button>
+  </div>
+
+  <div class="admin-panel">
+    <h2>Executive Board</h2>
+    <div id="board-editor"></div>
+    <button type="button" id="add-board-member" class="btn" style="margin-top:12px;">Add member</button>
+  </div>
+
+  <div class="admin-actions">
+    <button type="button" id="save-btn" class="btn">Save changes</button>
+    <button type="button" id="export-btn" class="btn" style="background:#333;color:#fff;">Export config file</button>
+    <button type="button" id="reset-btn" class="btn" style="background:#444;color:#fff;">Reset to defaults</button>
+    <button type="button" id="logout-btn" class="btn" style="background:#555;color:#fff;">Log out</button>
+  </div>
+  <p id="save-message" class="admin-hint" style="color:var(--primary);"></p>
+</div>
+
+<script src="js/site-config.js"></script>
+<script src="js/admin.js"></script>
+</body>
+</html>
