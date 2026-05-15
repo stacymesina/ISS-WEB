@@ -19,22 +19,26 @@ const SITE_DEFAULTS = {
       title: "ISS Elections 2026",
       date: "April 21 – 24, 2026",
       desc: "Participate and help shape the future of the organization.",
+      image: "img1.jpg",
     },
     {
       title: "The Hufflepuff Summit: A Project Management Seminar",
       date: "May 7, 2026",
       desc: "A seminar designed to introduce IS students to the fundamentals of project management, bridging theory and real-world application through practical tools and industry insights.",
+      image: "img2.jpg",
     },
     {
       title: "The Broken Spell: Escape from Azka-bug",
       date: "May 7, 2026",
       desc: "An interactive, code-themed escape room where participants solve programming and logic challenges to fix a corrupted system within a limited time.",
+      image: "img3.jpg",
     },
     {
       title:
         "The Sorcerer's Network: Illuminating the Future of Information Systems Colloquium 2026",
       date: "May 8, 2026",
       desc: "A culminating event where fourth-year IS students present and defend their capstone projects, showcasing their research, technical skills, and readiness for the professional world.",
+      image: "img4.jpg",
     },
   ],
   executiveBoard: [
