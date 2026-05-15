@@ -15,7 +15,7 @@ const SiteConfig = (() => {
         ? JSON.parse(JSON.stringify(SITE_DEFAULTS))
         : {};
     try {
-      const res = await fetch("data/site-config.json?t=" + Date.now());
+      const res = await fetch("data/site-config.json");
       if (res.ok) base = await res.json();
     } catch (_) {
       /* file:// or offline — keep SITE_DEFAULTS */
@@ -35,6 +35,12 @@ const SiteConfig = (() => {
     return config;
   }
 
+  // Forces a fresh reload and updates the in-memory config.
+  async function refresh() {
+    config = null;
+    return load();
+  }
+
   function get() {
     return config;
   }
@@ -42,6 +48,12 @@ const SiteConfig = (() => {
   function save(updates) {
     config = deepMerge(config || {}, updates);
     localStorage.setItem(STORAGE_KEY, JSON.stringify(config));
+
+    // Notify other pages/tabs in the same browser session that config changed.
+    // (Cross-tab sync would use the native `storage` event; this helps
+    // when navigation/back-forward caching prevents reload.)
+    window.dispatchEvent(new CustomEvent("isnexus:config-changed", { detail: { config } }));
+
     return config;
   }
 
@@ -93,6 +105,7 @@ const SiteConfig = (() => {
 
   return {
     load,
+    refresh,
     get,
     save,
     resetOverrides,
