@@ -28,9 +28,10 @@ async function initSiteRender() {
 
 function highlightAdminNav() {
   if (SiteConfig.isAdmin()) {
-    document.querySelectorAll(".nav-admin").forEach((el) => {
-      el.textContent = "Editor";
-      el.classList.add("nav-admin-active");
+    document.querySelectorAll(".staff-access").forEach((el) => {
+      el.classList.add("staff-access-active");
+      const link = el.querySelector("a");
+      if (link) link.textContent = "Editor (signed in)";
     });
   }
 }
