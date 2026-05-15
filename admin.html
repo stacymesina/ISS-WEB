@@ -51,11 +51,19 @@
   </div>
 
   <div class="admin-panel">
-    <h2>Events &amp; Announcements</h2>
-    <p class="admin-hint" style="margin-bottom:12px;">These appear on the Home page slider and the Events page.</p>
+    <h2>Upcoming Events (Home slider + Events page)</h2>
+    <p class="admin-hint" style="margin-bottom:12px;">These appear on the Home page slider and the Upcoming Events section of the Events page.</p>
     <div id="announcements-editor"></div>
     <button type="button" id="add-announcement" class="btn" style="margin-top:12px;">Add event</button>
   </div>
+
+  <div class="admin-panel">
+    <h2>Event Archive</h2>
+    <p class="admin-hint" style="margin-bottom:12px;">These appear on the Events page under Event Archive.</p>
+    <div id="events-archive-editor"></div>
+    <button type="button" id="add-archive-event" class="btn" style="margin-top:12px;">Add archive item</button>
+  </div>
+
 
   <div class="admin-panel">
     <h2>About page</h2>
@@ -106,8 +114,9 @@
   <p>© 2026 IS Nexus — Information Systems Society</p>
 </footer>
 
-<script src="js/site-defaults.js"></script>
+  <script src="js/site-defaults.js"></script>
 <script src="js/site-config.js"></script>
+<script src="js/admin-archive.js"></script>
 <script src="js/admin.js"></script>
 </body>
 </html>
