@@ -268,6 +268,72 @@ function initDashboard() {
 }
 
 /* =========================
+   EXPORT CONFIG
+========================= */
+
+const exportBtn = document.getElementById("export-btn");
+
+if (exportBtn) {
+  exportBtn.addEventListener("click", () => {
+
+    const dataStr =
+      "data:text/json;charset=utf-8," +
+      encodeURIComponent(
+        JSON.stringify(SiteConfig.get(), null, 2)
+      );
+
+    const dl = document.createElement("a");
+
+    dl.setAttribute("href", dataStr);
+    dl.setAttribute("download", "site-config.json");
+
+    document.body.appendChild(dl);
+
+    dl.click();
+
+    dl.remove();
+  });
+}
+
+/* =========================
+   RESET DEFAULTS
+========================= */
+
+const resetBtn = document.getElementById("reset-btn");
+
+if (resetBtn) {
+  resetBtn.addEventListener("click", () => {
+
+    const confirmReset = confirm(
+      "Reset all local changes?"
+    );
+
+    if (!confirmReset) return;
+
+    localStorage.clear();
+
+    alert("Reset complete.");
+
+    location.reload();
+  });
+}
+
+/* =========================
+   LOGOUT
+========================= */
+
+const logoutBtn = document.getElementById("logout-btn");
+
+if (logoutBtn) {
+  logoutBtn.addEventListener("click", () => {
+
+    sessionStorage.clear();
+
+    location.reload();
+  });
+}
+
+/* =========================
    INIT
 ========================= */
 
