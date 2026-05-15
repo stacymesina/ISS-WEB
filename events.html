@@ -322,124 +322,29 @@
       </h2>
       <p class="hint">Click “Upcoming Events”, any upcoming event card, or “Register Now” to open the registration popup.</p>
 
-      <div class="events-grid">
-        <article class="event-card clickable">
-          <img src="event1.png" alt="The Hufflepuff Summit event poster" class="event-image" />
-          <div class="event-content">
-            <h3 class="event-title">The Hufflepuff Summit: A Project Management Seminar</h3>
-            <p class="event-meta">
-              <span class="date">May 7, 2026</span><br />
-              9AM - 12PM
-            </p>
-            <p class="event-desc">
-              This seminar focuses on equipping students with a substantive introduction to project management. In contemporary, project-oriented industries, the ability to plan, organize, and execute initiatives is essential.
-          </div>
-        </article>
-
-        <article class="event-card clickable">
-          <img src="event2.png" alt="The Broken Spell event poster" class="event-image" />
-          <div class="event-content">
-            <h3 class="event-title">The Broken Spell: Escape from Azka-bug</h3>
-            <p class="event-meta">
-              <span class="date">May 7, 2026</span><br />
-              1PM - 5PM
-            </p>
-            <p class="event-desc">
-               This event is an interactive, code-themed escape room designed for CICS Week 2026. It immerses participants in a wizarding-inspired scenario where a corrupted system must be repaired by solving a series of programming and logic-based challenges within a limited time.
-            </p>
-          </div>
-        </article>
-
-        <article class="event-card clickable">
-          <img src="event3.png" alt="The Sorcerer’s Network event poster" class="event-image" />
-          <div class="event-content">
-            <h3 class="event-title">The Sorcerer’s Network: Illuminating the Future of Information Systems Colloquium 2026</h3>
-            <p class="event-meta">
-              <span class="date">May 8, 2026</span><br />
-              8AM - 5PM
-            </p>
-            <p class="event-desc">
-              This IS Research Colloqium 2026 serves as the culminating academic activity for fourth-year IS students, providing a formal venue for presenting, defending, and evaluating their Capstone Projects. It fosters an environment of scholarly discourse where students can demonstrate their research, analytical, and technical skills. 
-            </p>
-          </div>
-        </article>
+      <div class="events-grid" id="events-list">
+        <!-- rendered from site-config.json via js/site-render.js -->
       </div>
+
+      <script>
+        // Optional: if your event cards are clickable/modal-driven, this keeps existing behavior.
+        // The site-render script will inject cards; you can extend it later to wire up registration.
+      </script>
+
+
+
 
       <div class="register-cta">
         <button class="btn" id="openRegisterModal">Register Now</button>
       </div>
 
-      <div class="section-gap">
+  <div class="section-gap">
         <h2 class="sub-title">Event Archive</h2>
-        <div class="events-grid">
-          <article class="event-card">
-            <img src="pastEvent1.jpg" alt="Catching Codes: The Great IScape event poster"  class="event-image" />
-            <div class="event-content">
-              <h3 class="event-title">Catching Codes: The Great IScape</h3>
-              <p class="event-desc">
-                This event is an interactive escape room challenge designed for Information Systems students as part of IS Week.This activity integrates coding and logical problem-solving tasks, where participants must work individually or in teams to solve programming-related puzzles and “escape” within a set time limit.
-              </p>
-            </div>
-          </article>
-
-          <article class="event-card">
-            <img src="pastEvent3.jpg" alt="Mockingjay Rising event poster" class="event-image" />
-            <div class="event-content">
-              <h3 class="event-title">Mockingjay Rising: A Night of Fire and Song</h3>
-              <p class="event-desc">
-                A vibrant celebration blending music, performance, and community spirit. With fiery visuals and
-                energetic staging, this event showcased creativity and unity among IS students, making it a
-                memorable night of passion and talent.
-              </p>
-            </div>
-          </article>
-
-          <article class="event-card">
-            <img src="pastEvent4.jpg" alt="Clash of Districts event poster" class="event-image" />
-            <div class="event-content">
-              <h3 class="event-title">Clash of Districts: IS Sports Arena</h3>
-              <p class="event-desc">
-                A fiery sports competition that brought out the best in teamwork and rivalry. Featuring bold
-                serpent imagery, the event embodied strength, energy, and camaraderie as districts battled for
-                glory in a spirited athletic arena.
-              </p>
-            </div>
-          </article>
-
-          <article class="event-card">
-            <img src="pastEvent5.jpg" alt="Catching Minds quiz bee event poster" class="event-image" />
-            <div class="event-content">
-              <h3 class="event-title">Catching Minds: The Quiz Bee</h3>
-              <p class="event-desc">
-                An intellectual showdown where wit and knowledge took center stage. With its glowing light bulb
-                and clock imagery, the event symbolized the race against time and the spark of ideas, challenging
-                students to think fast and think smart.
-              </p>
-            </div>
-          </article>
-
-          <article class="event-card">
-            <img src="pastEvent6.jpg" alt="Odds of Victory: Esports event poster" class="event-image" />
-            <div class="event-content">
-              <h3 class="event-title">Odds of Victory: Esports</h3>
-              <p class="event-desc">
-                A competitive esports event designed for IS students to showcase their gaming skills, strategy, and teamwork in popular multiplayer games. Participants battle it out for victory, pride, and campus bragging rights.
-              </p>
-            </div>
-          </article>
-
-          <article class="event-card">
-            <img src="pastEvent7.jpg" alt="IS ACT-OFF! event poster" class="event-image" />
-            <div class="event-content">
-              <h3 class="event-title">IS ACT-OFF!</h3>
-              <p class="event-desc">
-                The IS Act-Off! event is designed to engage Information Systems students in a fun, interactive, and team-based activity that strengthens communication, creativity, and collaboration skills.
-              </p>
-            </div>
-          </article>
-          
+        <div class="events-grid" id="events-archive">
+          <!-- rendered from site-config.json via js/site-render.js -->
         </div>
       </div>
+
     </section>
   </main>
 
@@ -447,7 +352,13 @@
     <p>© 2026 IS Nexus — Information Systems Society</p>
   </footer>
 
+  <script src="js/site-defaults.js"></script>
+  <script src="js/site-config.js"></script>
+  <script src="js/site-render.js"></script>
+
+
   <div id="registerModal" class="modal-overlay" aria-hidden="true">
+
     <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="registerTitle">
       <button class="modal-close" id="closeRegisterModal" aria-label="Close">&times;</button>
       <h3 id="registerTitle">Event Registration</h3>
