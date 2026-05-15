@@ -120,20 +120,149 @@ function initDashboard() {
   const saveBtn = document.getElementById("save-btn");
   const addBtn = document.getElementById("add-board-member");
 
+  /* =========================
+     LOAD EXISTING VALUES
+  ========================= */
+
+  SiteConfig.load().then(() => {
+    const cfg = SiteConfig.get();
+
+    // Membership
+    const membershipNotice = document.getElementById("membership-fee-notice");
+    if (membershipNotice) {
+      membershipNotice.value = cfg.membershipFeeNotice || "";
+    }
+
+    // About
+    const vision = document.getElementById("about-vision");
+    if (vision) {
+      vision.value = cfg.about?.vision || "";
+    }
+
+    const mission = document.getElementById("about-mission");
+    if (mission) {
+      mission.value = cfg.about?.mission || "";
+    }
+
+    const paragraphs = document.getElementById("about-paragraphs-edit");
+    if (paragraphs) {
+      paragraphs.value = (cfg.about?.paragraphs || []).join("\n");
+    }
+
+    // Hero
+    const heroTitle = document.getElementById("hero-title");
+    if (heroTitle) {
+      heroTitle.value = cfg.hero?.title || "";
+    }
+
+    const heroSubtitle = document.getElementById("hero-subtitle");
+    if (heroSubtitle) {
+      heroSubtitle.value = cfg.hero?.subtitle || "";
+    }
+
+    const heroTagline = document.getElementById("hero-tagline");
+    if (heroTagline) {
+      heroTagline.value = cfg.hero?.tagline || "";
+    }
+
+    // Contact
+    const email = document.getElementById("contact-email");
+    if (email) {
+      email.value = cfg.contact?.email || "";
+    }
+
+    const facebook = document.getElementById("contact-facebook");
+    if (facebook) {
+      facebook.value = cfg.contact?.facebook || "";
+    }
+
+    const instagram = document.getElementById("contact-instagram");
+    if (instagram) {
+      instagram.value = cfg.contact?.instagram || "";
+    }
+
+    // R101 toggle
+    const r101Toggle = document.getElementById("r101-toggle");
+    if (r101Toggle) {
+      r101Toggle.checked = !!cfg.membershipR101Open;
+    }
+  });
+
+  /* =========================
+     SAVE BUTTON
+  ========================= */
+
   if (saveBtn) {
     saveBtn.addEventListener("click", () => {
+
       const executiveBoard = collectBoard();
-      SiteConfig.save({ executiveBoard });
+
+      SiteConfig.save({
+
+        executiveBoard,
+
+        membershipR101Open:
+          document.getElementById("r101-toggle")?.checked || false,
+
+        membershipFeeNotice:
+          document.getElementById("membership-fee-notice")?.value || "",
+
+        hero: {
+          title:
+            document.getElementById("hero-title")?.value || "",
+
+          subtitle:
+            document.getElementById("hero-subtitle")?.value || "",
+
+          tagline:
+            document.getElementById("hero-tagline")?.value || "",
+        },
+
+        contact: {
+          email:
+            document.getElementById("contact-email")?.value || "",
+
+          facebook:
+            document.getElementById("contact-facebook")?.value || "",
+
+          instagram:
+            document.getElementById("contact-instagram")?.value || "",
+        },
+
+        about: {
+          vision:
+            document.getElementById("about-vision")?.value || "",
+
+          mission:
+            document.getElementById("about-mission")?.value || "",
+
+          paragraphs:
+            document.getElementById("about-paragraphs-edit")
+              ?.value
+              .split("\n")
+              .filter(Boolean) || [],
+        },
+      });
+
       alert("Saved successfully!");
     });
   }
 
+  /* =========================
+     ADD MEMBER
+  ========================= */
+
   if (addBtn) {
     addBtn.addEventListener("click", () => {
-      document.getElementById("board-editor")
+      document
+        .getElementById("board-editor")
         .appendChild(createBoardMember());
     });
   }
+
+  /* =========================
+     LOAD BOARD
+  ========================= */
 
   loadBoardEditor();
 }
