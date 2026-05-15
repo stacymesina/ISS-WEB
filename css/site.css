@@ -64,21 +64,26 @@ nav a.nav-closed {
   opacity: 0.55;
 }
 
-nav a.nav-admin {
-  border: 1px solid var(--primary);
-  padding: 6px 12px;
-  border-radius: 5px;
-  font-size: 0.85rem;
+/* Discreet staff link — home footer only */
+.staff-access {
+  margin-top: 10px;
+  font-size: 0.72rem;
+  opacity: 0.35;
 }
 
-nav a.nav-admin:hover {
-  background: rgba(255, 122, 0, 0.15);
+.staff-access a {
+  color: var(--text);
+  text-decoration: none;
 }
 
-nav a.nav-admin-active {
-  background: var(--primary);
-  color: #000 !important;
-  text-shadow: none !important;
+.staff-access a:hover {
+  opacity: 1;
+  color: var(--primary);
+}
+
+.staff-access.staff-access-active a {
+  color: var(--primary);
+  opacity: 0.85;
 }
 
 .events-grid {
