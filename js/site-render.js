@@ -21,7 +21,11 @@ async function initSiteRender() {
   renderAboutParagraphs(cfg);
   renderAnnouncements(cfg);
   renderEventsList(cfg);
+  renderEventsArchive(cfg);
+
+
   renderExecutiveBoard(cfg);
+
   updateMembershipNav(cfg);
   highlightAdminNav();
 }
@@ -46,7 +50,7 @@ function renderEventsList(cfg) {
         ? `<img class="event-card-img" src="${escapeHtml(e.image)}" alt="${escapeHtml(e.title)}">`
         : "";
       return `
-    <article class="event-card">
+    <article class="event-card clickable">
       ${img}
       <h3>${escapeHtml(e.title)}</h3>
       <p class="event-date">${escapeHtml(e.date)}</p>
@@ -56,6 +60,32 @@ function renderEventsList(cfg) {
     })
     .join("");
 }
+
+function renderEventsArchive(cfg) {
+  const archive = document.getElementById("events-archive");
+  if (!archive) return;
+
+  // Archive items are stored in cfg.eventsArchive (editable in the admin).
+  const list = cfg.eventsArchive;
+  if (!Array.isArray(list) || list.length === 0) return;
+
+  archive.innerHTML = list
+    .map((e) => {
+      const img = e.image
+        ? `<img class="event-card-img" src="${escapeHtml(e.image)}" alt="${escapeHtml(e.title)}">`
+        : "";
+      return `
+        <article class="event-card">
+          ${img}
+          <h3>${escapeHtml(e.title)}</h3>
+          <p class="event-desc">${escapeHtml(e.desc)}</p>
+        </article>
+      `;
+    })
+    .join("");
+}
+
+
 
 function renderAboutParagraphs(cfg) {
   const container = document.getElementById("about-paragraphs");
