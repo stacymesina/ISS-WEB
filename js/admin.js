@@ -56,6 +56,7 @@ function populateForm() {
   document.getElementById("hero-tagline").value = c.hero?.tagline || "";
 
   renderAnnouncementEditor();
+  renderArchiveEditor();
   renderBoardEditor();
 }
 
@@ -79,9 +80,22 @@ function renderAnnouncementEditor() {
       <input type="text" data-ann-title="${i}" value="${escapeAttr(a.title)}">
       <label>Date</label>
       <input type="text" data-ann-date="${i}" value="${escapeAttr(a.date)}">
-      <label>Image filename (e.g. img1.jpg)</label>
-      <input type="text" data-ann-image="${i}" value="${escapeAttr(a.image || "")}">
+      <label>Upload event image (updates immediately)</label>
+      <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
+        <input type="file" accept="image/*" data-ann-file="${i}" style="flex:1;min-width:210px;">
+        <button type="button" class="btn" style="margin-top:0;background:#444;color:#fff;" data-ann-upload="${i}">Upload</button>
+      </div>
+      <div style="margin-top:10px;display:flex;gap:12px;align-items:flex-start;flex-wrap:wrap;">
+        <div style="flex:0 0 auto;">
+          <img id="ann-img-preview-${i}" src="${escapeAttr(a.image || "")}" alt="Preview" style="width:120px;height:70px;object-fit:cover;border:1px solid var(--primary);border-radius:8px;opacity:${a.image ? 1 : 0.35};background:#0b0b10;">
+        </div>
+        <div style="flex:1;min-width:240px;">
+          <label style="margin-top:0;">Saved image path (used by the public site)</label>
+          <input type="text" data-ann-image="${i}" value="${escapeAttr(a.image || "")}" placeholder="/uploads/events/xxx.jpg">
+        </div>
+      </div>
       <label>Description</label>
+
       <textarea rows="3" data-ann-desc="${i}">${escapeAttr(a.desc)}</textarea>
       <button type="button" class="btn" data-remove-ann="${i}" style="margin-top:8px;background:#444;color:#fff;">Remove</button>
     `;
@@ -104,7 +118,59 @@ function renderAnnouncementEditor() {
       renderAnnouncementEditor();
     });
   });
+
+  container.querySelectorAll("[data-ann-upload]").forEach((btn) => {
+    btn.addEventListener("click", async () => {
+      const idx = Number(btn.getAttribute("data-ann-upload"));
+      const fileInput = container.querySelector(`[data-ann-file="${idx}"]`);
+      const file = fileInput?.files?.[0];
+      if (!file) {
+        alert("Choose an image file first.");
+        return;
+      }
+
+      const pw = (draftConfig && draftConfig.adminPassword) ? draftConfig.adminPassword : "";
+
+      const fd = new FormData();
+      fd.append("image", file);
+      fd.append("eventIndex", String(idx));
+
+      try {
+        const res = await fetch("/api/admin/upload-event-image", {
+          method: "POST",
+          headers: {
+            "x-admin-password": pw,
+          },
+          body: (() => {
+            // multer expects field name `eventIndex` in req.body.
+            fd.set("eventIndex", String(idx));
+            return fd;
+          })(),
+        });
+        const data = await res.json();
+        if (!data.ok && res.status !== 200) {
+          alert(data.error || "Upload failed");
+          return;
+        }
+
+        // Persist the saved path into the draft + preview
+        draftConfig.announcements[idx].image = data.imageUrl || fd.get("image");
+        const imgPreview = document.getElementById(`ann-img-preview-${idx}`);
+        if (imgPreview && data.imageUrl) imgPreview.src = data.imageUrl;
+
+        const imageInput = container.querySelector(`[data-ann-image="${idx}"]`);
+        if (imageInput && data.imageUrl) imageInput.value = data.imageUrl;
+
+        // Update draft config (source of truth)
+        syncAnnouncementsFromDom();
+      } catch (err) {
+        console.error(err);
+        alert("Upload error. Check server logs.");
+      }
+    });
+  });
 }
+
 
 function syncAnnouncementsFromDom() {
   const titles = document.querySelectorAll("[data-ann-title]");
