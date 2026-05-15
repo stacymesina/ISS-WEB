@@ -16,6 +16,11 @@ const SITE_DEFAULTS = {
   },
   announcements: [
     {
+      title: "ISS Elections 2026",
+      date: "April 21 – 24, 2026",
+      desc: "Participate and help shape the future of the organization.",
+    },
+    {
       title: "The Hufflepuff Summit: A Project Management Seminar",
       date: "May 7, 2026",
       desc: "A seminar designed to introduce IS students to the fundamentals of project management, bridging theory and real-world application through practical tools and industry insights.",
