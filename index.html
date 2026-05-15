@@ -362,7 +362,11 @@
 <body>
 
 <header class="header">
- <div class="logo" id="secret-admin-trigger" style="cursor:pointer;">
+ <div
+  class="logo"
+  id="secret-admin-trigger"
+  style="cursor:pointer;"
+>
   <img src="iss-logo.png" alt="ISS Logo">
   <span>IS NEXUS</span>
 </div>
@@ -504,44 +508,57 @@
 
 	<script>
 
-  // SECRET LOGO CLICK
-  const logoTrigger = document.getElementById("secret-admin-trigger");
+document.addEventListener("DOMContentLoaded", () => {
 
-  logoTrigger.addEventListener("dblclick", () => {
-    document.getElementById("adminModal").style.display = "flex";
-  });
+  const logoTrigger =
+    document.getElementById("secret-admin-trigger");
 
-  function closeAdminModal() {
-    document.getElementById("adminModal").style.display = "none";
-  }
+  logoTrigger.addEventListener("click", () => {
 
-  function checkAdminLogin() {
-
-    const password =
-      document.getElementById("adminPassword").value;
-
-    if(password === "iss-nexus-admin") {
-
-      window.location.href = "admin.html";
-
-    } else {
-
-      document.getElementById("adminError").innerText =
-        "Incorrect password.";
-
-    }
-  }
-
-  // CLOSE WHEN CLICK OUTSIDE
-  window.addEventListener("click", (e) => {
-
-    const modal = document.getElementById("adminModal");
-
-    if(e.target === modal) {
-      closeAdminModal();
-    }
+    document.getElementById("adminModal").style.display =
+      "flex";
 
   });
+
+});
+
+function closeAdminModal() {
+
+  document.getElementById("adminModal").style.display =
+    "none";
+
+}
+
+function checkAdminLogin() {
+
+  const password =
+    document.getElementById("adminPassword").value;
+
+  if(password === "iss-nexus-admin") {
+
+    window.location.href = "admin.html";
+
+  } else {
+
+    document.getElementById("adminError").innerText =
+      "Incorrect password.";
+
+  }
+
+}
+
+window.addEventListener("click", (e) => {
+
+  const modal =
+    document.getElementById("adminModal");
+
+  if(e.target === modal) {
+
+    closeAdminModal();
+
+  }
+
+});
 
 </script>
 </body>
