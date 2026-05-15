@@ -4,14 +4,62 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>About — IS Nexus</title>
+
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Inter:wght@300;400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/site.css">
+
+  <style>
+
+    .board {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      margin-top: 30px;
+    }
+
+    .member {
+      background: var(--card);
+      border: 1px solid var(--primary);
+      border-radius: 14px;
+      padding: 20px;
+      text-align: center;
+      transition: 0.3s;
+    }
+
+    .member:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 0 18px rgba(255, 122, 0, 0.35);
+    }
+
+    .member img {
+      width: 120px;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 3px solid var(--primary);
+      margin-bottom: 15px;
+    }
+
+    .member strong {
+      display: block;
+      color: var(--primary);
+      margin-bottom: 8px;
+    }
+
+  </style>
+
 </head>
+
 <body>
 
 <header class="header">
+
   <div class="nav">
-    <a href="index.html" class="logo"><span>IS NEXUS</span></a>
+
+    <a href="index.html" class="logo">
+      <span>IS NEXUS</span>
+    </a>
+
     <nav>
       <a href="index.html">Home</a>
       <a href="about.html">About</a>
@@ -19,47 +67,147 @@
       <a href="membership.html">Membership</a>
       <a href="index.html#contact">Contact</a>
     </nav>
+
   </div>
+
 </header>
 
 <section class="section">
+
   <div class="card center-card">
-    <h2 class="sub-title">About Information Systems Society</h2>
+
+    <h2 class="sub-title">
+      About Information Systems Society
+    </h2>
+
     <div id="about-paragraphs">
-      <p>The Information Systems Society (ISS) is the mother organization of the Information Systems Department. It strives to strengthen the IS community and serves as the grievance body for IS students.</p>
-      <p style="margin-top:1rem;">Beyond this, ISS is committed to fostering academic excellence, leadership development, and holistic growth by organizing activities that enhance technical skills, encourage collaboration, and cultivate a strong sense of identity within the department.</p>
-      <p style="margin-top:1rem;">The organization also serves as a bridge between students and the administration, ensuring a supportive and empowering environment for all IS students.</p>
+
+      <p>
+        The Information Systems Society (ISS) is the mother organization
+        of the Information Systems Department. It strives to strengthen
+        the IS community and serves as the grievance body for IS students.
+      </p>
+
+      <p style="margin-top:1rem;">
+        Beyond this, ISS is committed to fostering academic excellence,
+        leadership development, and holistic growth by organizing
+        activities that enhance technical skills, encourage collaboration,
+        and cultivate a strong sense of identity within the department.
+      </p>
+
+      <p style="margin-top:1rem;">
+        The organization also serves as a bridge between students and the
+        administration, ensuring a supportive and empowering environment
+        for all IS students.
+      </p>
+
     </div>
+
   </div>
+
 </section>
 
 <section class="section">
+
   <h2>Mission &amp; Vision</h2>
+
   <div class="mv-container">
+
     <div class="mv-box">
+
       <h3>Vision</h3>
-      <p data-site="about.vision">Guided by the core values of the Church, the University and the Information Systems Department, the organization provides opportunities for growth and social responsiveness. It aims to develop each member's abilities, promote camaraderie, and build proactive individuals ready to surpass challenges while contributing meaningfully to society.</p>
+
+      <p data-site="about.vision">
+        Guided by the core values of the Church, the University and the
+        Information Systems Department, the organization provides
+        opportunities for growth and social responsiveness. It aims to
+        develop each member's abilities, promote camaraderie, and build
+        proactive individuals ready to surpass challenges while
+        contributing meaningfully to society.
+      </p>
+
     </div>
+
     <div class="mv-box">
+
       <h3>Mission</h3>
-      <p data-site="about.mission">The organization aims to be a leading student body in information systems by promoting academic excellence, fostering professional and moral development, and utilizing technology to serve society. It empowers members to become competent, compassionate, and committed professionals.</p>
+
+      <p data-site="about.mission">
+        The organization aims to be a leading student body in information
+        systems by promoting academic excellence, fostering professional
+        and moral development, and utilizing technology to serve society.
+        It empowers members to become competent, compassionate, and
+        committed professionals.
+      </p>
+
     </div>
+
   </div>
+
 </section>
 
 <section class="section">
+
   <h2>Executive Board</h2>
+
   <div class="board" id="executive-board">
-    <div class="member"><strong>President</strong><br>Stacy Vhonzel U. Mesina</div>
-    <div class="member"><strong>Internal Vice President</strong><br>John Marco P. Parman</div>
-    <div class="member"><strong>External Vice President</strong><br>Precious Gelin P. Apelo</div>
-    <div class="member"><strong>Secretary</strong><br>Shekaina Rose Janelle D. Uy</div>
-    <div class="member"><strong>Assistant Secretary</strong><br>Alyza Denyz O. Besavilla</div>
-    <div class="member"><strong>Treasurer</strong><br>Jared Aimery T. Ty</div>
-    <div class="member"><strong>Auditor</strong><br>Leann C. Wingco</div>
-    <div class="member"><strong>Public Relations Officer</strong><br>Charlene May F. Cagayat</div>
-    <div class="member"><strong>Chief Of Staff</strong><br>Ahneesha Mhae F. Wee-ebol</div>
+
+    <div class="member">
+      <img src="id1.jpg" alt="President">
+      <strong>President</strong>
+      Stacy Vhonzel U. Mesina
+    </div>
+
+    <div class="member">
+      <img src="id2.jpg" alt="Internal Vice President">
+      <strong>Internal Vice President</strong>
+      John Marco P. Parman
+    </div>
+
+    <div class="member">
+      <img src="id3.jpg" alt="External Vice President">
+      <strong>External Vice President</strong>
+      Precious Gelin P. Apelo
+    </div>
+
+    <div class="member">
+      <img src="id4.jpg" alt="Secretary">
+      <strong>Secretary</strong>
+      Shekaina Rose Janelle D. Uy
+    </div>
+
+    <div class="member">
+      <img src="id5.jpg" alt="Assistant Secretary">
+      <strong>Assistant Secretary</strong>
+      Alyza Denyz O. Besavilla
+    </div>
+
+    <div class="member">
+      <img src="id6.jpg" alt="Treasurer">
+      <strong>Treasurer</strong>
+      Jared Aimery T. Ty
+    </div>
+
+    <div class="member">
+      <img src="id7.jpg" alt="Auditor">
+      <strong>Auditor</strong>
+      Leann C. Wingco
+    </div>
+
+    <div class="member">
+      <img src="id8.jpg" alt="Public Relations Officer">
+      <strong>Public Relations Officer</strong>
+      Charlene May F. Cagayat
+    </div>
+
+    <div class="member">
+      <img src="id9.jpg" alt="Chief Of Staff">
+      <strong>Chief Of Staff</strong>
+      Ahneesha Mhae F. Wee-ebol
+    </div>
+
   </div>
+
 </section>
 
 <footer class="footer">
@@ -70,5 +218,6 @@
 <script src="js/site-defaults.js"></script>
 <script src="js/site-config.js"></script>
 <script src="js/site-render.js"></script>
+
 </body>
 </html>
