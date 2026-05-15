@@ -64,6 +64,70 @@ nav a.nav-closed {
   opacity: 0.55;
 }
 
+nav a.nav-admin {
+  border: 1px solid var(--primary);
+  padding: 6px 12px;
+  border-radius: 5px;
+  font-size: 0.85rem;
+}
+
+nav a.nav-admin:hover {
+  background: rgba(255, 122, 0, 0.15);
+}
+
+nav a.nav-admin-active {
+  background: var(--primary);
+  color: #000 !important;
+  text-shadow: none !important;
+}
+
+.events-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+  max-width: 1000px;
+  margin: 30px auto;
+  text-align: left;
+}
+
+.event-card {
+  background: var(--card);
+  border: 1px solid var(--primary);
+  border-radius: 12px;
+  padding: 24px;
+  transition: 0.3s;
+}
+
+.event-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 0 20px rgba(255, 122, 0, 0.35);
+}
+
+.event-card h3 {
+  font-family: "Orbitron", sans-serif;
+  color: var(--primary);
+  font-size: 1.1rem;
+  margin-bottom: 10px;
+}
+
+.event-date {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.event-desc {
+  opacity: 0.9;
+  line-height: 1.6;
+  font-size: 0.95rem;
+}
+
+.sub-title {
+  font-size: 1.3rem;
+  margin-bottom: 15px;
+  font-family: "Orbitron", sans-serif;
+  color: var(--primary);
+}
+
 .section {
   padding: 70px 20px;
   text-align: center;
