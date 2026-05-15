@@ -41,15 +41,19 @@ function renderEventsList(cfg) {
   if (!list || !cfg.announcements) return;
 
   list.innerHTML = cfg.announcements
-    .map(
-      (e) => `
+    .map((e) => {
+      const img = e.image
+        ? `<img class="event-card-img" src="${escapeHtml(e.image)}" alt="${escapeHtml(e.title)}">`
+        : "";
+      return `
     <article class="event-card">
+      ${img}
       <h3>${escapeHtml(e.title)}</h3>
       <p class="event-date">${escapeHtml(e.date)}</p>
       <p class="event-desc">${escapeHtml(e.desc)}</p>
     </article>
-  `
-    )
+  `;
+    })
     .join("");
 }
 
@@ -77,7 +81,11 @@ function renderAnnouncements(cfg) {
   cfg.announcements.forEach((a) => {
     const slide = document.createElement("div");
     slide.className = "announcement-slide";
+    const img = a.image
+      ? `<img class="announcement-img" src="${escapeHtml(a.image)}" alt="${escapeHtml(a.title)}">`
+      : "";
     slide.innerHTML = `
+      ${img}
       <h2>${escapeHtml(a.title)}</h2>
       <p class="date">${escapeHtml(a.date)}</p>
       <p>${escapeHtml(a.desc)}</p>
