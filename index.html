@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -292,8 +291,8 @@
   <div class="nav">
 
     <!-- UPDATED LOGO -->
-    <div class="logo" id="secret-admin-trigger" style="cursor:pointer;">
-      <img src="iss-logo.png" alt="ISS Logo">
+<div class="logo" style="cursor:pointer;" ondblclick="window.location.href='admin.html'">
+  <img src="iss-logo.png" alt="ISS Logo">
       <span>IS NEXUS</span>
     </div>
 
@@ -433,24 +432,6 @@
 >
   Admin
 </button>
-
-<!-- DOUBLE CLICK LOGO SCRIPT -->
-<script>
-
-document.addEventListener("DOMContentLoaded", () => {
-
-  const logo =
-    document.getElementById("secret-admin-trigger");
-
-  logo.addEventListener("dblclick", () => {
-
-    window.location.href = "admin.html";
-
-  });
-
-});
-
-</script>
 
 </body>
 </html>
