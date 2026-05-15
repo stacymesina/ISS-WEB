@@ -114,9 +114,18 @@
   <p>© 2026 IS Nexus — Information Systems Society</p>
 </footer>
 
-  <script src="js/site-defaults.js"></script>
+  <<script src="js/site-defaults.js"></script>
 <script src="js/site-config.js"></script>
-<script src="js/admin-archive.js"></script>
+
+<script>
+  // ensure config is always loaded before admin logic runs
+  window.addEventListener("DOMContentLoaded", async () => {
+    if (window.SiteConfig) {
+      await SiteConfig.load();
+    }
+  });
+</script>
+
 <script src="js/admin.js"></script>
 </body>
 </html>
