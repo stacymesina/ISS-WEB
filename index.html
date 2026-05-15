@@ -8,6 +8,53 @@
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Inter:wght@300;400&display=swap" rel="stylesheet">
 
   <style>
+	.admin-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.7);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 5000;
+}
+
+.admin-box {
+  background: #111;
+  border: 1px solid var(--primary);
+  padding: 30px;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 350px;
+  text-align: center;
+  position: relative;
+}
+
+.admin-box h2 {
+  color: var(--primary);
+  margin-bottom: 20px;
+  font-family: 'Orbitron';
+}
+
+.admin-box input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  background: #1a1a22;
+  border: 1px solid var(--primary);
+  color: white;
+  border-radius: 6px;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+}
     :root {
       --primary: #ff7a00;
       --bg: #0a0a0f;
@@ -315,11 +362,10 @@
 <body>
 
 <header class="header">
-  <div class="nav">
-    <div class="logo">
-      <img src="iss-logo.png" alt="ISS Logo">
-      <span>IS NEXUS</span>
-    </div>
+ <div class="logo" id="secret-admin-trigger" style="cursor:pointer;">
+  <img src="iss-logo.png" alt="ISS Logo">
+  <span>IS NEXUS</span>
+</div>
     <nav>
       <a href="#home">Home</a>
       <a href="about.html">About</a>
@@ -431,6 +477,73 @@
 
 <!-- Discreet admin button (only works when signed in as admin via overlay) -->
 <button id="admin-overlay-launch" type="button" class="staff-access" style="display:none;position:fixed;right:16px;bottom:16px;z-index:3000;border:1px solid var(--primary);background:rgba(10,10,15,0.85);color:var(--text);padding:10px 12px;border-radius:999px;cursor:pointer;opacity:0.7;">Admin</button>
+<!-- SECRET ADMIN LOGIN MODAL -->
+<div id="adminModal" class="admin-modal">
+  <div class="admin-box">
+
+    <button class="close-btn" onclick="closeAdminModal()">
+      &times;
+    </button>
+
+    <h2>Admin Login</h2>
+
+    <input
+      type="password"
+      id="adminPassword"
+      placeholder="Enter admin password"
+    >
+
+    <button onclick="checkAdminLogin()" class="btn">
+      Login
+    </button>
+
+    <p id="adminError"></p>
+
+  </div>
+</div>
+
+	<script>
+
+  // SECRET LOGO CLICK
+  const logoTrigger = document.getElementById("secret-admin-trigger");
+
+  logoTrigger.addEventListener("dblclick", () => {
+    document.getElementById("adminModal").style.display = "flex";
+  });
+
+  function closeAdminModal() {
+    document.getElementById("adminModal").style.display = "none";
+  }
+
+  function checkAdminLogin() {
+
+    const password =
+      document.getElementById("adminPassword").value;
+
+    if(password === "iss-nexus-admin") {
+
+      window.location.href = "admin.html";
+
+    } else {
+
+      document.getElementById("adminError").innerText =
+        "Incorrect password.";
+
+    }
+  }
+
+  // CLOSE WHEN CLICK OUTSIDE
+  window.addEventListener("click", (e) => {
+
+    const modal = document.getElementById("adminModal");
+
+    if(e.target === modal) {
+      closeAdminModal();
+    }
+
+  });
+
+</script>
 </body>
 </html>
 
