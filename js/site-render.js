@@ -31,13 +31,14 @@ async function initSiteRender() {
 }
 
 /* =========================
-   NAV / ADMIN
+   ADMIN NAV
 ========================= */
 
 function highlightAdminNav() {
   if (SiteConfig.isAdmin()) {
     document.querySelectorAll(".staff-access").forEach((el) => {
       el.classList.add("staff-access-active");
+
       const link = el.querySelector("a");
       if (link) link.textContent = "Editor (signed in)";
     });
@@ -145,14 +146,12 @@ function renderExecutiveBoard(cfg) {
   if (!board || !cfg.executiveBoard) return;
 
   board.innerHTML = cfg.executiveBoard.map((m) => {
-    const image = m.image
-      ? `<img src="${escapeHtml(m.image)}" alt="${escapeHtml(m.role)}">`
-      : `<img src="images/default-profile.png" alt="default">`;
+    const imgSrc = m.image || "id1.jpg"; // fallback
 
     return `
       <div class="member">
-        ${image}
-        <strong>${escapeHtml(m.role)}</strong>
+        <img src="${escapeHtml(imgSrc)}" alt="${escapeHtml(m.role)}">
+        <strong>${escapeHtml(m.role)}</strong><br>
         ${escapeHtml(m.name)}
       </div>
     `;
@@ -176,7 +175,7 @@ function updateMembershipNav(cfg) {
 }
 
 /* =========================
-   HELPERS
+   ABOUT HELPERS
 ========================= */
 
 function getByPath(obj, path) {
