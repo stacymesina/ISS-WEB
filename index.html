@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -70,42 +71,42 @@
     }
 
     .hero {
-  text-align: center;
-}
+      text-align: center;
+    }
     
-.hero-top {
-  padding: 100px 20px;
-  background: linear-gradient(rgba(10,10,15,0.7), rgba(10,10,15,0.9)),
-              url('bg.jpg') center/cover no-repeat;
-}
+    .hero-top {
+      padding: 100px 20px;
+      background: linear-gradient(rgba(10,10,15,0.7), rgba(10,10,15,0.9)),
+                  url('bg.jpg') center/cover no-repeat;
+    }
 
-.hero-bottom {
-  padding: 40px 20px;
-}
+    .hero-bottom {
+      padding: 40px 20px;
+    }
 
-.hero h2 {
-  font-family: 'Orbitron';
-  font-size: 2.8rem;
-  color: var(--primary);
-  margin-bottom: 5px;
-}
+    .hero h2 {
+      font-family: 'Orbitron';
+      font-size: 2.8rem;
+      color: var(--primary);
+      margin-bottom: 5px;
+    }
 
-.hero-top {
-  padding: 140px 20px;
-}
+    .hero-top {
+      padding: 140px 20px;
+    }
 
-.hero h2 {
-  text-shadow: 0 0 15px rgba(255, 122, 0, 0.6);
-}
+    .hero h2 {
+      text-shadow: 0 0 15px rgba(255, 122, 0, 0.6);
+    }
 
-.subtitle {
-  opacity: 0.7;
-  font-size: 0.9rem;
-}
+    .subtitle {
+      opacity: 0.7;
+      font-size: 0.9rem;
+    }
 
-.hero p {
-  opacity: 0.85;
-}
+    .hero p {
+      opacity: 0.85;
+    }
 
     .section {
       padding: 70px 20px;
@@ -137,117 +138,89 @@
       box-shadow: 0 0 12px var(--primary);
     }
 
-  .announcement-container {
-  max-width: 600px;
-  margin: 30px auto;
-  overflow: hidden;
-  position: relative;
-  border-radius: 12px;
-}
+    .announcement-container {
+      max-width: 600px;
+      margin: 30px auto;
+      overflow: hidden;
+      position: relative;
+      border-radius: 12px;
+    }
 
-.announcement-slider {
-  display: flex;
-  width: 100%;
-  will-change: transform;
-  transition: transform 0.6s ease-in-out;
-} 
+    .announcement-slider {
+      display: flex;
+      width: 100%;
+      will-change: transform;
+      transition: transform 0.6s ease-in-out;
+    } 
 
-.announcement-slide {
-  flex: 0 0 100%;
-  width: 100%;
-  box-sizing: border-box;
+    .announcement-slide {
+      flex: 0 0 100%;
+      width: 100%;
+      box-sizing: border-box;
+      padding: 40px;
+      background: var(--card);
+      border: 2px solid var(--primary);
+      border-radius: 12px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      min-height: 260px;
+      text-align: center;
+    }
 
-  padding: 40px;
-  background: var(--card);
-  border: 2px solid var(--primary);
-  border-radius: 12px;
+    .announcement-slide:hover {
+      box-shadow: 0 0 30px var(--primary);
+      transform: scale(1.02);
+    }
 
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+    .announcement-slide h2 {
+      font-family: 'Orbitron';
+      color: var(--primary);
+      font-size: 1.8rem;
+    }
 
-  gap: 10px;
-  min-height: 260px;
+    .announcement-slide .date {
+      margin: 10px 0;
+      font-weight: bold;
+      color: #fff;
+    }
 
-  text-align: center;
-}
+    .announcement-slide h2,
+    .announcement-slide p {
+      max-width: 90%;
+      word-break: normal;
+      overflow-wrap: break-word;
+      line-height: 1.5;
+    }
 
-.announcement-slide:hover {
-  box-shadow: 0 0 30px var(--primary);
-  transform: scale(1.02);
-}
+    .dots {
+      display: flex;
+      justify-content: center;
+      margin-top: 15px;
+      gap: 8px;
+    }
 
-.announcement-slide h2 {
-  font-family: 'Orbitron';
-  color: var(--primary);
-  font-size: 1.8rem;
-}
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: rgba(255, 122, 0, 0.3);
+      cursor: pointer;
+      transition: 0.3s;
+    }
 
-.announcement-slide .date {
-  margin: 10px 0;
-  font-weight: bold;
-  color: #fff;
-}
+    .dot:hover {
+      transform: scale(1.3);
+      background: var(--primary);
+    }
 
-.announcement-slide {
-  min-width: 100%;
-  flex-shrink: 0;
-  padding: 40px;
-  background: var(--card);
-  border: 2px solid var(--primary);
-  border-radius: 12px;
-  text-align: center;
-  box-shadow: 0 0 20px rgba(255, 122, 0, 0.3);
+    .dot.active {
+      background: var(--primary);
+      box-shadow: 0 0 10px var(--primary);
+    }
 
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-
-  min-height: 260px;
-  box-sizing: border-box;
-}
-
-.announcement-slide h2,
-.announcement-slide p {
-  max-width: 90%;
-  word-break: normal;
-  overflow-wrap: break-word;
-  line-height: 1.5;
-}
-
-.dots {
-  display: flex;
-  justify-content: center;
-  margin-top: 15px;
-  gap: 8px;
-}
-
-.dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: rgba(255, 122, 0, 0.3);
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.dot:hover {
-  transform: scale(1.3);
-  background: var(--primary);
-}
-
-.dot.active {
-  background: var(--primary);
-  box-shadow: 0 0 10px var(--primary);
-}
-
-.announcement-slider {
-  display: flex;
-  transition: transform 0.6s ease-in-out;
-}
     .footer {
       text-align: center;
       padding: 20px;
@@ -256,77 +229,82 @@
     }
 
     .tagline {
- 	 margin-top: 10px;
-	 opacity: 0.85;
-	}
+      margin-top: 10px;
+      opacity: 0.85;
+    }
 
-.gallery {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-auto-rows: 180px;
-  gap: 12px;
-  max-width: 1000px;
-  margin: 20px auto;
-}
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-auto-rows: 180px;
+      gap: 12px;
+      max-width: 1000px;
+      margin: 20px auto;
+    }
 
-.gallery-item {
-  position: relative;
-  overflow: hidden;
-  border-radius: 12px;
-}
+    .gallery-item {
+      position: relative;
+      overflow: hidden;
+      border-radius: 12px;
+    }
 
-.gallery-item img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: 0.3s;
-}
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: 0.3s;
+    }
 
-.gallery-item:hover img {
-  transform: scale(1.05);
-}
+    .gallery-item:hover img {
+      transform: scale(1.05);
+    }
 
-.gallery-item span {
-  position: absolute;
-  bottom: 10px;
-  left: 10px;
-  background: rgba(0,0,0,0.5);
-  padding: 5px 10px;
-  font-size: 0.8rem;
-  border-radius: 5px;
-  color: white;
-}
+    .gallery-item span {
+      position: absolute;
+      bottom: 10px;
+      left: 10px;
+      background: rgba(0,0,0,0.5);
+      padding: 5px 10px;
+      font-size: 0.8rem;
+      border-radius: 5px;
+      color: white;
+    }
 
-.large {
-  grid-column: span 2;
-  grid-row: span 2;
-}
+    .large {
+      grid-column: span 2;
+      grid-row: span 2;
+    }
 
-.tall {
-  grid-row: span 2;
-}
+    .tall {
+      grid-row: span 2;
+    }
 
-.wide {
-  grid-column: span 2;
-}
-  
+    .wide {
+      grid-column: span 2;
+    }
+
   </style>
 </head>
+
 <body>
 
 <header class="header">
   <div class="nav">
-    <div class="logo">
+
+    <!-- UPDATED LOGO -->
+    <div class="logo" id="secret-admin-trigger" style="cursor:pointer;">
       <img src="iss-logo.png" alt="ISS Logo">
       <span>IS NEXUS</span>
     </div>
+
     <nav>
       <a href="#home">Home</a>
       <a href="about.html">About</a>
       <a href="events.html">Events</a>
       <a href="membership.html">Membership</a>
       <a href="#contact">Contact</a>
-     </nav>
+    </nav>
+
   </div>
 </header>
 
@@ -334,10 +312,13 @@
 
   <div class="hero-top">
     <h2 data-site="hero.title">IS Nexus</h2>
-    <p class="subtitle" data-site="hero.subtitle">Official Platform of UST Information Systems Society</p>
-    <p class="tagline" data-site="hero.tagline">Your central hub for IS students—events, opportunities, and involvement.</p>
+    <p class="subtitle" data-site="hero.subtitle">
+      Official Platform of UST Information Systems Society
+    </p>
+    <p class="tagline" data-site="hero.tagline">
+      Your central hub for IS students—events, opportunities, and involvement.
+    </p>
   </div>
-
 
 </section>
 
@@ -345,6 +326,7 @@
   <h3>ISS Archives</h3>
 
   <div class="gallery">
+
     <div class="gallery-item large">
       <img src="img1.jpg" alt="">
       <span>ISS General Assembly</span>
@@ -390,7 +372,7 @@
       <span>Uno</span>
     </div>
 
-     <div class="gallery-item">
+    <div class="gallery-item">
       <img src="img10.jpg" alt="">
       <span>Tetris</span>
     </div>
@@ -399,29 +381,42 @@
 </section>
 
 <section id="announcements" class="section alt">
+
   <h3>Announcements</h3>
-	<div class="announcement-container">
 
-  <div class="announcement-slider" id="announcement-slider"></div>
+  <div class="announcement-container">
 
-  <div class="dots" id="announcement-dots"></div>
+    <div class="announcement-slider" id="announcement-slider"></div>
 
-</div></section>
+    <div class="dots" id="announcement-dots"></div>
 
+  </div>
 
+</section>
 
 <section id="contact" class="section">
+
   <h3>Contact</h3>
-  <p data-site="contact.email">Email: iss.cics@ust.edu.ph</p>
-  <p data-site="contact.facebook">Facebook: UST - Information Systems Society</p>
-  <p data-site="contact.instagram">Instagram: @ustiss</p>
+
+  <p data-site="contact.email">
+    Email: iss.cics@ust.edu.ph
+  </p>
+
+  <p data-site="contact.facebook">
+    Facebook: UST - Information Systems Society
+  </p>
+
+  <p data-site="contact.instagram">
+    Instagram: @ustiss
+  </p>
+
 </section>
 
 <footer class="footer">
 
   <p>© 2026 IS Nexus — Information Systems Society</p>
-</footer>
 
+</footer>
 
 <script src="js/index.js"></script>
 <script src="js/site-defaults.js"></script>
@@ -429,8 +424,34 @@
 <script src="js/site-render.js"></script>
 <script src="js/index-admin-overlay.js"></script>
 
-<!-- Discreet admin button (only works when signed in as admin via overlay) -->
-<button id="admin-overlay-launch" type="button" class="staff-access" style="display:none;position:fixed;right:16px;bottom:16px;z-index:3000;border:1px solid var(--primary);background:rgba(10,10,15,0.85);color:var(--text);padding:10px 12px;border-radius:999px;cursor:pointer;opacity:0.7;">Admin</button>
+<!-- Discreet admin button -->
+<button
+  id="admin-overlay-launch"
+  type="button"
+  class="staff-access"
+  style="display:none;position:fixed;right:16px;bottom:16px;z-index:3000;border:1px solid var(--primary);background:rgba(10,10,15,0.85);color:var(--text);padding:10px 12px;border-radius:999px;cursor:pointer;opacity:0.7;"
+>
+  Admin
+</button>
+
+<!-- DOUBLE CLICK LOGO SCRIPT -->
+<script>
+
+document.addEventListener("DOMContentLoaded", () => {
+
+  const logo =
+    document.getElementById("secret-admin-trigger");
+
+  logo.addEventListener("dblclick", () => {
+
+    window.location.href = "admin.html";
+
+  });
+
+});
+
+</script>
+
 </body>
 </html>
-
+```
