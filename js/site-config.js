@@ -4,32 +4,32 @@ const SiteConfig = (() => {
   let config = null;
 
   async function load() {
-  if (config) return config;
+    if (config) return config;
 
-  let base = typeof SITE_DEFAULTS !== "undefined"
-    ? JSON.parse(JSON.stringify(SITE_DEFAULTS))
-    : {};
+    let base = typeof SITE_DEFAULTS !== "undefined"
+      ? JSON.parse(JSON.stringify(SITE_DEFAULTS))
+      : {};
 
-  try {
-    const res = await fetch("data/site-config.json");
-    if (res.ok) {
-      const json = await res.json();
-      base = deepMerge(base, json);
-    }
-  } catch (_) {}
-
-  const stored = localStorage.getItem(STORAGE_KEY);
-
-  if (stored) {
     try {
-      base = deepMerge(base, JSON.parse(stored));
-    } catch {}
+      const res = await fetch("data/site-config.json");
+      if (res.ok) {
+        const json = await res.json();
+        base = deepMerge(base, json);
+      }
+    } catch (_) {}
+
+    const stored = localStorage.getItem(STORAGE_KEY);
+
+    if (stored) {
+      try {
+        base = deepMerge(base, JSON.parse(stored));
+      } catch {}
+    }
+
+    config = base; // 🔥 ALWAYS SET CONFIG
+
+    return config;
   }
-
-  config = base;
-
-  return config;
-}
 
   function get() {
     return config;
@@ -42,9 +42,9 @@ const SiteConfig = (() => {
   }
 
   function login(password) {
-  if (!config) return false;
-  return password === config.adminPassword;
-}
+    if (!config) return false;
+    return password === config.adminPassword;
+  }
 
   function isAdmin() {
     return sessionStorage.getItem(SESSION_KEY) === "1";
@@ -70,5 +70,5 @@ const SiteConfig = (() => {
     return out;
   }
 
-  return { load, get, save, isAdmin, login };
+  return { load, get, save, login, isAdmin };
 })();
