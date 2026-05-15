@@ -19,6 +19,8 @@ function initLogin() {
   const form = document.getElementById("login-form");
   if (!form) return;
 
+  console.log("Login ready");
+
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
@@ -28,6 +30,8 @@ function initLogin() {
     const error = document.getElementById("login-error");
 
     const success = SiteConfig.login(password);
+
+    console.log("Login attempt:", success);
 
     if (success) {
       document.getElementById("admin-login").style.display = "none";
@@ -58,8 +62,7 @@ function createBoardMember(role = "", name = "", image = "") {
     <label>Image</label>
     <input type="file" class="board-image" accept="image/*">
 
-    <img class="board-preview" src="${image || ""}" 
-      style="width:60px;height:60px;border-radius:50%;margin-top:8px;">
+    <img class="board-preview" src="${image || ""}" style="width:60px;height:60px;border-radius:50%;margin-top:8px;">
   `;
 
   const fileInput = div.querySelector(".board-image");
@@ -90,9 +93,7 @@ async function loadBoardEditor() {
   container.innerHTML = "";
 
   (cfg.executiveBoard || []).forEach((m) => {
-    container.appendChild(
-      createBoardMember(m.role, m.name, m.image)
-    );
+    container.appendChild(createBoardMember(m.role, m.name, m.image));
   });
 }
 
@@ -115,7 +116,7 @@ function collectBoard() {
 }
 
 /* =========================
-   INIT DASHBOARD
+   DASHBOARD INIT
 ========================= */
 
 function initDashboard() {
@@ -134,8 +135,7 @@ function initDashboard() {
 
   if (addBtn) {
     addBtn.addEventListener("click", () => {
-      document
-        .getElementById("board-editor")
+      document.getElementById("board-editor")
         .appendChild(createBoardMember());
     });
   }
@@ -144,7 +144,13 @@ function initDashboard() {
 }
 
 /* =========================
-   INIT PAGE
+   INIT PAGE SAFELY
 ========================= */
 
-document.addEventListener("DOMContentLoaded", initLogin);
+document.addEventListener("DOMContentLoaded", () => {
+  try {
+    initLogin();
+  } catch (err) {
+    console.error("Admin init failed:", err);
+  }
+});
