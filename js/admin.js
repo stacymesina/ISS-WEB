@@ -1,3 +1,7 @@
+/* =========================
+   IMAGE UTIL
+========================= */
+
 function fileToBase64(file) {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -8,7 +12,36 @@ function fileToBase64(file) {
 }
 
 /* =========================
-   BOARD EDITOR INIT
+   LOGIN
+========================= */
+
+function initLogin() {
+  const form = document.getElementById("login-form");
+  if (!form) return;
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    await SiteConfig.load();
+
+    const password = document.getElementById("admin-password").value;
+    const error = document.getElementById("login-error");
+
+    const success = SiteConfig.login(password);
+
+    if (success) {
+      document.getElementById("admin-login").style.display = "none";
+      document.getElementById("admin-dashboard").hidden = false;
+
+      initDashboard();
+    } else {
+      error.textContent = "Incorrect password";
+    }
+  });
+}
+
+/* =========================
+   BOARD CREATION
 ========================= */
 
 function createBoardMember(role = "", name = "", image = "") {
@@ -23,9 +56,10 @@ function createBoardMember(role = "", name = "", image = "") {
     <input class="board-name" value="${name}">
 
     <label>Image</label>
-    <input type="file" class="board-image">
+    <input type="file" class="board-image" accept="image/*">
 
-    <img class="board-preview" src="${image}" style="width:60px;height:60px;border-radius:50%;margin-top:8px;">
+    <img class="board-preview" src="${image || ""}" 
+      style="width:60px;height:60px;border-radius:50%;margin-top:8px;">
   `;
 
   const fileInput = div.querySelector(".board-image");
@@ -37,7 +71,6 @@ function createBoardMember(role = "", name = "", image = "") {
 
     const base64 = await fileToBase64(file);
     preview.src = base64;
-    div.dataset.image = base64;
   });
 
   return div;
@@ -56,20 +89,21 @@ async function loadBoardEditor() {
 
   container.innerHTML = "";
 
-  (cfg.executiveBoard || []).forEach(m => {
-    const el = createBoardMember(m.role, m.name, m.image);
-    container.appendChild(el);
+  (cfg.executiveBoard || []).forEach((m) => {
+    container.appendChild(
+      createBoardMember(m.role, m.name, m.image)
+    );
   });
 }
 
 /* =========================
-   SAVE BOARD
+   COLLECT BOARD DATA
 ========================= */
 
 function collectBoard() {
   const members = [];
 
-  document.querySelectorAll(".board-member").forEach(row => {
+  document.querySelectorAll(".board-member").forEach((row) => {
     const role = row.querySelector(".board-role").value;
     const name = row.querySelector(".board-name").value;
     const image = row.querySelector(".board-preview").src;
@@ -81,28 +115,36 @@ function collectBoard() {
 }
 
 /* =========================
-   SAVE BUTTON
+   INIT DASHBOARD
 ========================= */
 
-document.getElementById("save-btn").addEventListener("click", () => {
-  const executiveBoard = collectBoard();
+function initDashboard() {
+  const saveBtn = document.getElementById("save-btn");
+  const addBtn = document.getElementById("add-board-member");
 
-  SiteConfig.save({ executiveBoard });
+  if (saveBtn) {
+    saveBtn.addEventListener("click", () => {
+      const executiveBoard = collectBoard();
 
-  alert("Saved!");
-});
+      SiteConfig.save({ executiveBoard });
+
+      alert("Saved successfully!");
+    });
+  }
+
+  if (addBtn) {
+    addBtn.addEventListener("click", () => {
+      document
+        .getElementById("board-editor")
+        .appendChild(createBoardMember());
+    });
+  }
+
+  loadBoardEditor();
+}
 
 /* =========================
-   ADD MEMBER BUTTON
+   INIT PAGE
 ========================= */
 
-document.getElementById("add-board-member").addEventListener("click", () => {
-  document.getElementById("board-editor")
-    .appendChild(createBoardMember());
-});
-
-/* =========================
-   INIT
-========================= */
-
-document.addEventListener("DOMContentLoaded", loadBoardEditor);
+document.addEventListener("DOMContentLoaded", initLogin);
