@@ -1,4 +1,4 @@
-/** Built-in defaults — used when site-config.json cannot be loaded (e.g. opening files locally). */
+ /** Built-in defaults — used when site-config.json cannot be loaded (e.g. opening files locally). */
 const SITE_DEFAULTS = {
   membershipR101Open: false,
   membershipPeriodLabel: "R101",
@@ -14,6 +14,7 @@ const SITE_DEFAULTS = {
     tagline:
       "Your central hub for IS students—events, opportunities, and involvement.",
   },
+  eventsArchive: [],
   announcements: [
     {
       title: "ISS Elections 2026",
