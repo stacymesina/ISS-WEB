@@ -174,7 +174,7 @@ function bindEvents() {
 
   document.getElementById("add-announcement").addEventListener("click", () => {
     syncAnnouncementsFromDom();
-    draftConfig.announcements.push({ title: "New Announcement", date: "", desc: "" });
+    draftConfig.announcements.push({ title: "New Event", date: "", desc: "" });
     renderAnnouncementEditor();
   });
 
