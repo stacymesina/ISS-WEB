@@ -20,8 +20,36 @@ async function initSiteRender() {
 
   renderAboutParagraphs(cfg);
   renderAnnouncements(cfg);
+  renderEventsList(cfg);
   renderExecutiveBoard(cfg);
   updateMembershipNav(cfg);
+  highlightAdminNav();
+}
+
+function highlightAdminNav() {
+  if (SiteConfig.isAdmin()) {
+    document.querySelectorAll(".nav-admin").forEach((el) => {
+      el.textContent = "Editor";
+      el.classList.add("nav-admin-active");
+    });
+  }
+}
+
+function renderEventsList(cfg) {
+  const list = document.getElementById("events-list");
+  if (!list || !cfg.announcements) return;
+
+  list.innerHTML = cfg.announcements
+    .map(
+      (e) => `
+    <article class="event-card">
+      <h3>${escapeHtml(e.title)}</h3>
+      <p class="event-date">${escapeHtml(e.date)}</p>
+      <p class="event-desc">${escapeHtml(e.desc)}</p>
+    </article>
+  `
+    )
+    .join("");
 }
 
 function renderAboutParagraphs(cfg) {
