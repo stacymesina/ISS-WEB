@@ -1,7 +1,6 @@
 /* =========================
    IMAGE UTIL
 ========================= */
-
 function fileToBase64(file) {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -14,12 +13,9 @@ function fileToBase64(file) {
 /* =========================
    LOGIN
 ========================= */
-
 function initLogin() {
   const form = document.getElementById("login-form");
   if (!form) return;
-
-  console.log("Login ready");
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -30,8 +26,6 @@ function initLogin() {
     const error = document.getElementById("login-error");
 
     const success = SiteConfig.login(password);
-
-    console.log("Login attempt:", success);
 
     if (success) {
       document.getElementById("admin-login").style.display = "none";
@@ -45,7 +39,7 @@ function initLogin() {
 }
 
 /* =========================
-   BOARD CREATION
+   BOARD (RESTORED LOGIC + IMAGE ONLY ADDITION)
 ========================= */
 
 function createBoardMember(role = "", name = "", image = "") {
@@ -62,7 +56,8 @@ function createBoardMember(role = "", name = "", image = "") {
     <label>Image</label>
     <input type="file" class="board-image" accept="image/*">
 
-    <img class="board-preview" src="${image || ""}" style="width:60px;height:60px;border-radius:50%;margin-top:8px;">
+    <img class="board-preview" src="${image || ""}" 
+      style="width:60px;height:60px;border-radius:50%;margin-top:8px;">
   `;
 
   const fileInput = div.querySelector(".board-image");
@@ -93,12 +88,14 @@ async function loadBoardEditor() {
   container.innerHTML = "";
 
   (cfg.executiveBoard || []).forEach((m) => {
-    container.appendChild(createBoardMember(m.role, m.name, m.image));
+    container.appendChild(
+      createBoardMember(m.role, m.name, m.image || "")
+    );
   });
 }
 
 /* =========================
-   COLLECT BOARD DATA
+   COLLECT BOARD
 ========================= */
 
 function collectBoard() {
@@ -126,9 +123,7 @@ function initDashboard() {
   if (saveBtn) {
     saveBtn.addEventListener("click", () => {
       const executiveBoard = collectBoard();
-
       SiteConfig.save({ executiveBoard });
-
       alert("Saved successfully!");
     });
   }
@@ -144,13 +139,7 @@ function initDashboard() {
 }
 
 /* =========================
-   INIT PAGE SAFELY
+   INIT
 ========================= */
 
-document.addEventListener("DOMContentLoaded", () => {
-  try {
-    initLogin();
-  } catch (err) {
-    console.error("Admin init failed:", err);
-  }
-});
+document.addEventListener("DOMContentLoaded", initLogin);
