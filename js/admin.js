@@ -121,9 +121,7 @@ function collectBoard() {
 /* =========================
    INIT
 ========================= */
-document.addEventListener("DOMContentLoaded", initLogin);    }
-  });
-}
+document.addEventListener("DOMContentLoaded", initLogin);   
 
 /* =========================
    BOARD (RESTORED LOGIC + IMAGE ONLY ADDITION)
