@@ -1,61 +1,168 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ISS Admin</title>
-
-<link rel="stylesheet" href="css/site.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin — IS Nexus</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/site.css">
 </head>
-
 <body>
 
 <header class="header">
   <div class="nav">
-    <a href="index.html" class="logo">ISS NEXUS</a>
-    <a href="index.html">View Site</a>
+    <a href="index.html" class="logo"><span>IS NEXUS</span></a>
+    <nav>
+      <a href="index.html">View Site</a>
+    </nav>
   </div>
 </header>
 
-<section class="section">
-  <h1 class="title">ISS Admin</h1>
+<section class="section" style="padding-top:40px;padding-bottom:20px;">
+  <h1 class="title admin-main-title" style="margin:0;">ISS Admin</h1>
+  <p class="admin-subtext">
+Internal admin panel for managing the ISS website content, events, announcements, memberships, and organization information.
+</p>
 </section>
 
-<!-- LOGIN -->
 <div id="admin-login" class="admin-login">
-  <h2>Admin Login</h2>
-
+  <h2 style="font-family:Orbitron;color:var(--primary);margin-bottom:16px;font-size:1.2rem;">Admin Login</h2>
   <form id="login-form">
+    <label for="admin-password">Password</label>
+    <div class="password-wrap">
+  <input type="password" id="admin-password" placeholder="Enter admin password" required autocomplete="current-password">
 
-    <label>Password</label>
-
-    <div style="display:flex;gap:10px;">
-      <input type="password" id="admin-password" required>
-      <button type="button" id="toggle-password" class="btn">Show</button>
-    </div>
-
-    <button class="btn" style="margin-top:12px;width:100%;">
-      Login
-    </button>
-
-    <p id="login-error" style="color:red;margin-top:10px;"></p>
-    <p id="login-attempts" style="opacity:0.7;margin-top:5px;"></p>
-
+  <button type="button" id="toggle-password" class="toggle-password-btn">
+    Show
+  </button>
+</div>
+    <button type="submit" class="btn" style="width:100%;margin-top:16px;">Sign in to Editor</button>
   </form>
+  <p id="login-error" class="field-error" style="margin-top:12px;"></p>
+  <p class="admin-hint">Default password: <strong>iss-nexus-admin</strong> (change in config after login, then export).</p>
 </div>
 
-<!-- DASHBOARD -->
 <div id="admin-dashboard" class="admin-wrap" hidden>
+  <h2 class="title" style="text-align:left;margin-top:0;font-size:1.5rem;">ISS Admin</h2>
+  <p class="admin-hint">Changes apply in your browser when you click <strong>Save changes</strong>. To update the live site for everyone, <strong>Export config file</strong> and replace <code>data/site-config.json</code> on GitHub.</p>
 
-  <h2>Dashboard</h2>
+  <div class="admin-panel">
+    <h2>R101 Membership Applications</h2>
+    <div class="toggle-row">
+      <input type="checkbox" id="r101-toggle">
+      <label for="r101-toggle">Open membership applications (<span id="r101-status" class="status-badge closed">CLOSED</span>)</label>
+    </div>
+    <label for="membership-fee-notice">Membership fee notice (shown on application form)</label>
+    <textarea id="membership-fee-notice" rows="4"></textarea>
+  </div>
 
-  <p>Admin panel loaded successfully.</p>
+  <div class="admin-panel">
+    <h2>Upcoming Events (Home slider + Events page)</h2>
+    <p class="admin-hint" style="margin-bottom:12px;">These appear on the Home page slider and the Upcoming Events section of the Events page.</p>
+    <div class="toggle-row">
+      <input type="checkbox" id="upcoming-events-toggle">
+      <label for="upcoming-events-toggle">Show upcoming events (<span id="upcoming-events-status" class="status-badge open">OPEN</span>)</label>
+    </div>
+    <p class="admin-hint" style="margin-top:8px;">When turned off, the Events page will display a notice directing visitors to the event archive.</p>
+    <div id="announcements-editor"></div>
+    <button type="button" id="add-announcement" class="btn" style="margin-top:12px;">Add event</button>
+  </div>
 
-  <button id="logout-btn" class="btn">Logout</button>
+  <div class="admin-panel">
+    <h2>Event Archive</h2>
+    <p class="admin-hint" style="margin-bottom:12px;">These appear on the Events page under Event Archive.</p>
+    <div id="events-archive-editor"></div>
+    <button type="button" id="add-archive-event" class="btn" style="margin-top:12px;">Add archive item</button>
+  </div>
+
+
+  <div class="admin-panel">
+    <h2>About page</h2>
+    <label for="about-vision">Vision</label>
+    <textarea id="about-vision" rows="4"></textarea>
+    <label for="about-mission">Mission</label>
+    <textarea id="about-mission" rows="4"></textarea>
+    <label for="about-paragraphs-edit">About paragraphs (one per line)</label>
+    <textarea id="about-paragraphs-edit" rows="5"></textarea>
+  </div>
+
+  <div class="admin-panel">
+    <h2>Home page — Hero</h2>
+    <label for="hero-title">Title</label>
+    <input type="text" id="hero-title">
+    <label for="hero-subtitle">Subtitle</label>
+    <input type="text" id="hero-subtitle">
+    <label for="hero-tagline">Tagline</label>
+    <input type="text" id="hero-tagline">
+  </div>
+
+  <div class="admin-panel">
+    <h2>Contact</h2>
+    <label for="contact-email">Email</label>
+    <input type="text" id="contact-email">
+    <label for="contact-facebook">Facebook</label>
+    <input type="text" id="contact-facebook">
+    <label for="contact-instagram">Instagram</label>
+    <input type="text" id="contact-instagram">
+  </div>
+
+  <div class="admin-panel">
+    <h2>Site-wide Terms and Conditions</h2>
+    <p class="admin-hint">Shown as a popup when visitors first open the site (until they click I Agree). One paragraph per line; blank lines start a new paragraph.</p>
+    <div class="toggle-row">
+      <input type="checkbox" id="site-terms-enabled">
+      <label for="site-terms-enabled">Show site terms popup</label>
+    </div>
+    <label for="site-terms-title-edit">Popup title</label>
+    <input type="text" id="site-terms-title-edit">
+    <label for="site-terms-content">Terms content</label>
+    <textarea id="site-terms-content" rows="8"></textarea>
+  </div>
+
+  <div class="admin-panel">
+    <h2>Event Registration — Terms &amp; Google Form</h2>
+    <p class="admin-hint">Shown when members click Register on the Events page. Replace the Google Form URL with your real form link.</p>
+    <label for="event-terms-title-edit">Modal title</label>
+    <input type="text" id="event-terms-title-edit">
+    <label for="event-terms-content">Event registration terms</label>
+    <textarea id="event-terms-content" rows="8"></textarea>
+    <label for="event-google-form-url">Default Google Form URL</label>
+    <input type="url" id="event-google-form-url" placeholder="https://docs.google.com/forms/...">
+  </div>
+
+  <div class="admin-panel">
+    <h2>Executive Board</h2>
+    <div id="board-editor"></div>
+    <button type="button" id="add-board-member" class="btn" style="margin-top:12px;">Add member</button>
+  </div>
+
+  <div class="admin-actions">
+    <button type="button" id="save-btn" class="btn">Save changes</button>
+    <button type="button" id="export-btn" class="btn" style="background:#333;color:#fff;">Export config file</button>
+    <button type="button" id="reset-btn" class="btn" style="background:#444;color:#fff;">Reset to defaults</button>
+    <button type="button" id="logout-btn" class="btn" style="background:#555;color:#fff;">Log out</button>
+  </div>
+  <p id="save-message" class="admin-hint" style="color:var(--primary);"></p>
 </div>
 
-<script src="js/site-config.js"></script>
-<script src="js/admin.js"></script>
+<footer class="footer">
+  <p>© 2026 IS Nexus — Information Systems Society</p>
+</footer>
 
+  <script src="js/site-defaults.js"></script>
+<script src="js/site-config.js"></script>
+
+<script>
+  // ensure config is always loaded before admin logic runs
+  window.addEventListener("DOMContentLoaded", async () => {
+    if (window.SiteConfig) {
+      await SiteConfig.load();
+    }
+  });
+</script>
+
+<script src="js/admin-announcements.js"></script>
+<script src="js/admin-archive.js"></script>
+<script src="js/admin.js"></script>
 </body>
 </html>
