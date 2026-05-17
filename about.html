@@ -7,6 +7,7 @@
 
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Inter:wght@300;400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/site.css">
+  <link rel="stylesheet" href="css/terms.css">
 
   <style>
 
@@ -218,6 +219,21 @@
 <script src="js/site-defaults.js"></script>
 <script src="js/site-config.js"></script>
 <script src="js/site-render.js"></script>
+<script src="js/site-terms.js"></script>
+
+<div id="site-terms-overlay" class="terms-overlay" aria-hidden="true" role="dialog" aria-labelledby="site-terms-title">
+  <div class="terms-modal">
+    <div class="terms-modal-header">
+      <h2 id="site-terms-title">Terms and Conditions</h2>
+    </div>
+    <div class="terms-modal-body" id="site-terms-body"></div>
+    <div class="terms-modal-footer">
+      <div class="terms-actions">
+        <button type="button" id="site-terms-accept" class="terms-btn terms-btn-primary">I Agree</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 </body>
 </html>

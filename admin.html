@@ -53,6 +53,11 @@
   <div class="admin-panel">
     <h2>Upcoming Events (Home slider + Events page)</h2>
     <p class="admin-hint" style="margin-bottom:12px;">These appear on the Home page slider and the Upcoming Events section of the Events page.</p>
+    <div class="toggle-row">
+      <input type="checkbox" id="upcoming-events-toggle">
+      <label for="upcoming-events-toggle">Show upcoming events (<span id="upcoming-events-status" class="status-badge open">OPEN</span>)</label>
+    </div>
+    <p class="admin-hint" style="margin-top:8px;">When turned off, the Events page will display a notice directing visitors to the event archive.</p>
     <div id="announcements-editor"></div>
     <button type="button" id="add-announcement" class="btn" style="margin-top:12px;">Add event</button>
   </div>
@@ -96,6 +101,30 @@
   </div>
 
   <div class="admin-panel">
+    <h2>Site-wide Terms and Conditions</h2>
+    <p class="admin-hint">Shown as a popup when visitors first open the site (until they click I Agree). One paragraph per line; blank lines start a new paragraph.</p>
+    <div class="toggle-row">
+      <input type="checkbox" id="site-terms-enabled">
+      <label for="site-terms-enabled">Show site terms popup</label>
+    </div>
+    <label for="site-terms-title-edit">Popup title</label>
+    <input type="text" id="site-terms-title-edit">
+    <label for="site-terms-content">Terms content</label>
+    <textarea id="site-terms-content" rows="8"></textarea>
+  </div>
+
+  <div class="admin-panel">
+    <h2>Event Registration — Terms &amp; Google Form</h2>
+    <p class="admin-hint">Shown when members click Register on the Events page. Replace the Google Form URL with your real form link.</p>
+    <label for="event-terms-title-edit">Modal title</label>
+    <input type="text" id="event-terms-title-edit">
+    <label for="event-terms-content">Event registration terms</label>
+    <textarea id="event-terms-content" rows="8"></textarea>
+    <label for="event-google-form-url">Default Google Form URL</label>
+    <input type="url" id="event-google-form-url" placeholder="https://docs.google.com/forms/...">
+  </div>
+
+  <div class="admin-panel">
     <h2>Executive Board</h2>
     <div id="board-editor"></div>
     <button type="button" id="add-board-member" class="btn" style="margin-top:12px;">Add member</button>
@@ -114,7 +143,7 @@
   <p>© 2026 IS Nexus — Information Systems Society</p>
 </footer>
 
-  <<script src="js/site-defaults.js"></script>
+  <script src="js/site-defaults.js"></script>
 <script src="js/site-config.js"></script>
 
 <script>
@@ -126,6 +155,8 @@
   });
 </script>
 
+<script src="js/admin-announcements.js"></script>
+<script src="js/admin-archive.js"></script>
 <script src="js/admin.js"></script>
 </body>
 </html>

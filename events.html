@@ -269,12 +269,36 @@
       margin-top: 40px;
     }
 
+    .closed-message {
+      max-width: 520px;
+      margin: 24px auto 8px;
+      padding: 40px 30px;
+      background: var(--card);
+      border: 1px solid var(--primary);
+      border-radius: 12px;
+      text-align: center;
+    }
+
+    .closed-message h2 {
+      font-family: "Orbitron", sans-serif;
+      color: var(--primary);
+      font-size: 1.1rem;
+      margin-bottom: 12px;
+    }
+
+    .closed-message p {
+      opacity: 0.85;
+      line-height: 1.6;
+      font-size: 0.95rem;
+    }
+
     @media (max-width: 1024px) {
       .events-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
     }
 
+    /* Event / site terms modals — see css/terms.css */
     @media (max-width: 640px) {
       .events-grid {
         grid-template-columns: 1fr;
@@ -298,6 +322,7 @@
       }
     }
   </style>
+  <link rel="stylesheet" href="css/terms.css">
 </head>
 <body>
   <header class="header">
@@ -317,25 +342,27 @@
     <section class="events-wrapper">
       <h1 class="title">Events</h1>
 
-      <h2 class="sub-title">
-        <a href="#" class="sub-title-link" id="openRegisterFromTitle">Upcoming Events</a>
-      </h2>
-      <p class="hint">Click “Upcoming Events”, any upcoming event card, or “Register Now” to open the registration popup.</p>
+      <h2 class="sub-title">Upcoming Events</h2>
 
-      <div class="events-grid" id="events-list">
-        <!-- rendered from site-config.json via js/site-render.js -->
+      <div id="upcoming-events-none" class="closed-message" hidden>
+        <h2>No Upcoming Events at This Time</h2>
+        <p>
+          We do not have any upcoming events scheduled at the moment.
+          We invite you to browse our <strong>Event Archive</strong> below to view past activities,
+          highlights, and previous programs of the Information Systems Society.
+        </p>
       </div>
 
-      <script>
-        // Optional: if your event cards are clickable/modal-driven, this keeps existing behavior.
-        // The site-render script will inject cards; you can extend it later to wire up registration.
-      </script>
+      <div id="upcoming-events-active">
+        <p class="hint">Click any upcoming event card or “Register Now” to review event terms and open the Google Form registration link.</p>
 
+        <div class="events-grid" id="events-list">
+          <!-- rendered from site-config.json via js/site-render.js -->
+        </div>
 
-
-
-      <div class="register-cta">
-        <button class="btn" id="openRegisterModal">Register Now</button>
+        <div class="register-cta">
+          <button class="btn" id="openRegisterModal">Register Now</button>
+        </div>
       </div>
 
   <div class="section-gap">
@@ -355,80 +382,48 @@
   <script src="js/site-defaults.js"></script>
   <script src="js/site-config.js"></script>
   <script src="js/site-render.js"></script>
+  <script src="js/site-terms.js"></script>
+  <script src="js/event-registration.js"></script>
 
-
-  <div id="registerModal" class="modal-overlay" aria-hidden="true">
-
-    <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="registerTitle">
-      <button class="modal-close" id="closeRegisterModal" aria-label="Close">&times;</button>
-      <h3 id="registerTitle">Event Registration</h3>
-
-      <form class="modal-form">
-        <input type="text" placeholder="Full Name" required />
-        <input type="email" placeholder="UST Email" required />
-       <select required>
-  <option value="" disabled selected hidden>Department</option>
-  <option>Information Systems</option>
-  <option>Information Technology</option>
-  <option>Computer Science</option>
-</select>
-
-<select required>
-  <option value="" disabled selected hidden>Year Level</option>
-  <option>1st Year</option>
-  <option>2nd Year</option>
-  <option>3rd Year</option>
-  <option>4th Year</option>
-</select>
-
-<select required>
-  <option value="" disabled selected hidden>Event</option>
-  <option>The Hufflepuff Summit: A Project Management Seminar</option>
-  <option>The Broken Spell: Escape from Azka-bug</option>
-  <option>The Sorcerer’s Network: Illuminating the Future of Information Systems Colloquium 2026</option>
-</select>
-
-        <button type="submit" class="btn">Submit Registration</button>
-      </form>
+  <div id="site-terms-overlay" class="terms-overlay" aria-hidden="true" role="dialog" aria-labelledby="site-terms-title">
+    <div class="terms-modal">
+      <div class="terms-modal-header">
+        <h2 id="site-terms-title">Terms and Conditions</h2>
+      </div>
+      <div class="terms-modal-body" id="site-terms-body"></div>
+      <div class="terms-modal-footer">
+        <div class="terms-actions">
+          <button type="button" id="site-terms-accept" class="terms-btn terms-btn-primary">I Agree</button>
+        </div>
+      </div>
     </div>
   </div>
 
-  <script>
-    const openBtn = document.getElementById("openRegisterModal");
-    const closeBtn = document.getElementById("closeRegisterModal");
-    const modal = document.getElementById("registerModal");
-    const openFromTitle = document.getElementById("openRegisterFromTitle");
-    const clickableCards = document.querySelectorAll(".event-card.clickable");
-
-    function openModal() {
-      modal.classList.add("show");
-      modal.setAttribute("aria-hidden", "false");
-    }
-
-    function closeModal() {
-      modal.classList.remove("show");
-      modal.setAttribute("aria-hidden", "true");
-    }
-
-    openBtn.addEventListener("click", openModal);
-    openFromTitle.addEventListener("click", (e) => {
-      e.preventDefault();
-      openModal();
-    });
-
-    clickableCards.forEach((card) => {
-      card.addEventListener("click", openModal);
-    });
-
-    closeBtn.addEventListener("click", closeModal);
-
-    modal.addEventListener("click", (e) => {
-      if (e.target === modal) closeModal();
-    });
-
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape") closeModal();
-    });
-  </script>
+  <div id="event-terms-overlay" class="terms-overlay" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="event-terms-title">
+    <div class="terms-modal">
+      <div class="terms-modal-header">
+        <h2 id="event-terms-title">Event Registration — Terms and Conditions</h2>
+        <button type="button" id="event-terms-close" class="modal-close" style="position:absolute;top:12px;right:14px;background:transparent;border:none;color:#eaeaf0;font-size:24px;cursor:pointer;" aria-label="Close">&times;</button>
+      </div>
+      <div class="terms-modal-body">
+        <div id="event-terms-body"></div>
+        <div class="terms-form-link-box" id="event-terms-form-link">
+          <strong>Google Form registration</strong>
+          <p>After you agree to the terms below, use this link to complete your registration:</p>
+          <a id="event-terms-form-anchor" href="#" target="_blank" rel="noopener noreferrer">Open registration form</a>
+        </div>
+      </div>
+      <div class="terms-modal-footer">
+        <label class="terms-checkbox-row">
+          <input type="checkbox" id="event-terms-agree">
+          <span>I have read and agree to the event registration terms and conditions.</span>
+        </label>
+        <div class="terms-actions">
+          <button type="button" id="event-terms-cancel" class="terms-btn terms-btn-secondary">Cancel</button>
+          <button type="button" id="event-terms-proceed" class="terms-btn terms-btn-primary" disabled>Continue to Google Form</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </body>
 </html>
