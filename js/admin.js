@@ -15,14 +15,26 @@ function fileToBase64(file) {
 ========================= */
 function initLogin() {
   const form = document.getElementById("login-form");
+  const passwordInput = document.getElementById("admin-password");
+  const toggleBtn = document.getElementById("toggle-password");
+
   if (!form) return;
+
+  // ✅ PASSWORD TOGGLE FIX (THIS IS THE IMPORTANT PART)
+  if (toggleBtn && passwordInput) {
+    toggleBtn.addEventListener("click", () => {
+      const isHidden = passwordInput.type === "password";
+      passwordInput.type = isHidden ? "text" : "password";
+      toggleBtn.textContent = isHidden ? "Hide" : "Show";
+    });
+  }
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
     await SiteConfig.load();
 
-    const password = document.getElementById("admin-password").value;
+    const password = passwordInput.value;
     const error = document.getElementById("login-error");
 
     const success = SiteConfig.login(password);
@@ -35,6 +47,81 @@ function initLogin() {
     } else {
       error.textContent = "Incorrect password";
     }
+  });
+}
+
+/* =========================
+   BOARD IMAGE
+========================= */
+function createBoardMember(role = "", name = "", image = "") {
+  const div = document.createElement("div");
+  div.className = "board-member";
+
+  div.innerHTML = `
+    <label>Role</label>
+    <input class="board-role" value="${role}">
+
+    <label>Name</label>
+    <input class="board-name" value="${name}">
+
+    <label>Image</label>
+    <input type="file" class="board-image" accept="image/*">
+
+    <img class="board-preview" src="${image || ""}" 
+      style="width:60px;height:60px;border-radius:50%;margin-top:8px;">
+  `;
+
+  const fileInput = div.querySelector(".board-image");
+  const preview = div.querySelector(".board-preview");
+
+  fileInput.addEventListener("change", async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const base64 = await fileToBase64(file);
+    preview.src = base64;
+  });
+
+  return div;
+}
+
+/* =========================
+   BOARD + DASHBOARD
+   (UNCHANGED CORE LOGIC)
+========================= */
+
+async function loadBoardEditor() {
+  await SiteConfig.load();
+  const cfg = SiteConfig.get();
+
+  const container = document.getElementById("board-editor");
+  if (!container) return;
+
+  container.innerHTML = "";
+
+  (cfg.executiveBoard || []).forEach((m) => {
+    container.appendChild(createBoardMember(m.role, m.name, m.image || ""));
+  });
+}
+
+function collectBoard() {
+  const members = [];
+
+  document.querySelectorAll(".board-member").forEach((row) => {
+    members.push({
+      role: row.querySelector(".board-role").value,
+      name: row.querySelector(".board-name").value,
+      image: row.querySelector(".board-preview").src
+    });
+  });
+
+  return members;
+}
+
+/* =========================
+   INIT
+========================= */
+document.addEventListener("DOMContentLoaded", initLogin);    }
   });
 }
 
