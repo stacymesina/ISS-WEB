@@ -413,4 +413,22 @@ if (logoutBtn) {
    INIT
 ========================= */
 
+document.addEventListener("click", (e) => {
+
+  if (e.target.id === "toggle-password") {
+
+    const input = document.getElementById("admin-password");
+
+    if (!input) return;
+
+    if (input.type === "password") {
+      input.type = "text";
+      e.target.textContent = "Hide";
+    } else {
+      input.type = "password";
+      e.target.textContent = "Show";
+    }
+  }
+});
+
 document.addEventListener("DOMContentLoaded", initLogin);
