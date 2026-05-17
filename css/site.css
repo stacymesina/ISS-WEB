@@ -617,3 +617,32 @@ input[aria-invalid="true"] {
     width: 100%;
   }
 }
+.password-wrap {
+  position: relative;
+}
+
+.toggle-password-btn {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  color: var(--primary);
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+
+.admin-subtext {
+  max-width: 650px;
+  margin: 16px auto 0;
+  opacity: 0.82;
+  line-height: 1.7;
+  text-align: center;
+}
+
+.board-preview,
+.announcement-preview,
+.archive-preview {
+  object-fit: cover;
+}
