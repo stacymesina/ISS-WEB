@@ -31,7 +31,7 @@ function initLogin() {
       document.getElementById("admin-login").style.display = "none";
       document.getElementById("admin-dashboard").hidden = false;
 
-      initDashboard();
+      await initDashboard();
     } else {
       error.textContent = "Incorrect password";
     }
@@ -112,19 +112,29 @@ function collectBoard() {
   return members;
 }
 
+function updateUpcomingEventsStatus(isOpen) {
+  const upcomingStatus = document.getElementById("upcoming-events-status");
+  if (!upcomingStatus) return;
+  upcomingStatus.textContent = isOpen ? "OPEN" : "CLOSED";
+  upcomingStatus.classList.toggle("open", isOpen);
+  upcomingStatus.classList.toggle("closed", !isOpen);
+}
+
 /* =========================
    DASHBOARD INIT
 ========================= */
 
-function initDashboard() {
+async function initDashboard() {
   const saveBtn = document.getElementById("save-btn");
   const addBtn = document.getElementById("add-board-member");
+
+  await SiteConfig.load();
 
   /* =========================
      LOAD EXISTING VALUES
   ========================= */
 
-  SiteConfig.load().then(() => {
+  (() => {
     const cfg = SiteConfig.get();
 
     // Membership
@@ -186,23 +196,82 @@ function initDashboard() {
     if (r101Toggle) {
       r101Toggle.checked = !!cfg.membershipR101Open;
     }
-  });
+
+    // Upcoming events toggle
+    const upcomingToggle = document.getElementById("upcoming-events-toggle");
+    const upcomingStatus = document.getElementById("upcoming-events-status");
+    if (upcomingToggle) {
+      upcomingToggle.checked = cfg.upcomingEventsOpen !== false;
+    }
+    if (upcomingStatus) {
+      updateUpcomingEventsStatus(cfg.upcomingEventsOpen !== false);
+    }
+    if (upcomingToggle) {
+      upcomingToggle.addEventListener("change", () => {
+        updateUpcomingEventsStatus(upcomingToggle.checked);
+      });
+    }
+
+    // Site terms
+    const siteTermsEnabled = document.getElementById("site-terms-enabled");
+    if (siteTermsEnabled) {
+      siteTermsEnabled.checked = cfg.siteTerms?.enabled !== false;
+    }
+    const siteTermsTitle = document.getElementById("site-terms-title-edit");
+    if (siteTermsTitle) {
+      siteTermsTitle.value = cfg.siteTerms?.title || "";
+    }
+    const siteTermsContent = document.getElementById("site-terms-content");
+    if (siteTermsContent) {
+      siteTermsContent.value = cfg.siteTerms?.content || "";
+    }
+
+    // Event registration terms
+    const eventTermsTitle = document.getElementById("event-terms-title-edit");
+    if (eventTermsTitle) {
+      eventTermsTitle.value = cfg.eventRegistration?.termsTitle || "";
+    }
+    const eventTermsContent = document.getElementById("event-terms-content");
+    if (eventTermsContent) {
+      eventTermsContent.value = cfg.eventRegistration?.termsContent || "";
+    }
+    const eventFormUrl = document.getElementById("event-google-form-url");
+    if (eventFormUrl) {
+      eventFormUrl.value = cfg.eventRegistration?.googleFormUrl || "";
+    }
+  })();
+
+  renderAnnouncementsEditor();
+  bindAnnouncementAddButton();
+  renderArchiveEditor();
+  bindArchiveAddButton();
+  loadBoardEditor();
 
   /* =========================
      SAVE BUTTON
   ========================= */
 
-  if (saveBtn) {
+  if (saveBtn && saveBtn.dataset.bound !== "1") {
+    saveBtn.dataset.bound = "1";
     saveBtn.addEventListener("click", () => {
 
       const executiveBoard = collectBoard();
+      const announcements =
+        typeof collectAnnouncements === "function" ? collectAnnouncements() : [];
+      const eventsArchive =
+        typeof collectArchive === "function" ? collectArchive() : [];
 
       SiteConfig.save({
 
         executiveBoard,
+        announcements,
+        eventsArchive,
 
         membershipR101Open:
           document.getElementById("r101-toggle")?.checked || false,
+
+        upcomingEventsOpen:
+          document.getElementById("upcoming-events-toggle")?.checked !== false,
 
         membershipFeeNotice:
           document.getElementById("membership-fee-notice")?.value || "",
@@ -242,6 +311,18 @@ function initDashboard() {
               .split("\n")
               .filter(Boolean) || [],
         },
+
+        siteTerms: {
+          enabled: document.getElementById("site-terms-enabled")?.checked !== false,
+          title: document.getElementById("site-terms-title-edit")?.value || "",
+          content: document.getElementById("site-terms-content")?.value || "",
+        },
+
+        eventRegistration: {
+          termsTitle: document.getElementById("event-terms-title-edit")?.value || "",
+          termsContent: document.getElementById("event-terms-content")?.value || "",
+          googleFormUrl: document.getElementById("event-google-form-url")?.value || "",
+        },
       });
 
       alert("Saved successfully!");
@@ -252,19 +333,14 @@ function initDashboard() {
      ADD MEMBER
   ========================= */
 
-  if (addBtn) {
+  if (addBtn && addBtn.dataset.bound !== "1") {
+    addBtn.dataset.bound = "1";
     addBtn.addEventListener("click", () => {
       document
         .getElementById("board-editor")
         .appendChild(createBoardMember());
     });
   }
-
-  /* =========================
-     LOAD BOARD
-  ========================= */
-
-  loadBoardEditor();
 }
 
 /* =========================
