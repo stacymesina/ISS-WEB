@@ -2,6 +2,7 @@
 const SITE_DEFAULTS = {
   membershipR101Open: false,
   membershipPeriodLabel: "R101",
+  upcomingEventsOpen: true,
   adminPassword: "iss-nexus-admin",
   contact: {
     email: "iss.cics@ust.edu.ph",
@@ -17,27 +18,21 @@ const SITE_DEFAULTS = {
   eventsArchive: [],
   announcements: [
     {
-      title: "ISS Elections 2026",
-      date: "April 21 – 24, 2026",
-      desc: "Participate and help shape the future of the organization.",
-      image: "img1.jpg",
-    },
-    {
       title: "The Hufflepuff Summit: A Project Management Seminar",
-      date: "May 7, 2026",
+      date: "May 19, 2026",
       desc: "A seminar designed to introduce IS students to the fundamentals of project management, bridging theory and real-world application through practical tools and industry insights.",
       image: "img2.jpg",
     },
     {
       title: "The Broken Spell: Escape from Azka-bug",
-      date: "May 7, 2026",
+      date: "May 19, 2026",
       desc: "An interactive, code-themed escape room where participants solve programming and logic challenges to fix a corrupted system within a limited time.",
       image: "img3.jpg",
     },
     {
       title:
         "The Sorcerer's Network: Illuminating the Future of Information Systems Colloquium 2026",
-      date: "May 8, 2026",
+      date: "May 20, 2026",
       desc: "A culminating event where fourth-year IS students present and defend their capstone projects, showcasing their research, technical skills, and readiness for the professional world.",
       image: "img4.jpg",
     },
@@ -66,4 +61,17 @@ const SITE_DEFAULTS = {
   },
   membershipFeeNotice:
     "Membership fee is ₱250. This applies once your application is approved and you are confirmed as an ISS member. Applicants for Staff and Executive Assistant roles may need to complete an interview first—payment details will be shared after you pass screening, not at the time you submit this form.",
+  siteTerms: {
+    enabled: true,
+    title: "Terms and Conditions — IS Nexus",
+    content:
+      "Welcome to IS Nexus, the official platform of the UST Information Systems Society (ISS).\n\nBy using this website, you agree to use it only for lawful purposes related to ISS membership, events, and announcements. Information you provide must be accurate and truthful.\n\nISS may update announcements, events, and membership policies at any time. Continued use of this site after updates constitutes acceptance of those changes.\n\nFor questions about these terms, contact iss.cics@ust.edu.ph.",
+  },
+  eventRegistration: {
+    termsTitle: "Event Registration — Terms and Conditions",
+    termsContent:
+      "By registering for an ISS event through this platform, you confirm that you are a current ISS member (unless the event is open to non-members as stated in the announcement).\n\nYou agree to follow university and ISS guidelines during the event, including attendance rules, dress code (if applicable), and conduct expectations.\n\nRegistration does not guarantee a slot until confirmed by ISS. The organization may cancel or reschedule events; registered participants will be notified through official channels.\n\nPersonal data collected via the registration form will be used only for event administration and may be shared with authorized ISS officers.",
+    googleFormUrl:
+      "https://docs.google.com/forms/d/e/1FAIpQLScK9wfLRSszKE-cZY4dyTtt-NWS6xrPA3JUBNDklkFLzqnz_g/viewform",
+  },
 };
