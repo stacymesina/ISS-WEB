@@ -1,5 +1,3 @@
-// Archive editor helpers for admin.html (events archive)
-
 function escapeAttr(str) {
   return String(str ?? "")
     .replace(/&/g, "&amp;")
@@ -14,22 +12,29 @@ function syncArchiveToConfig() {
 }
 
 function renderArchiveEditor() {
+
   const container = document.getElementById("events-archive-editor");
-  if (!container || typeof SiteConfig === "undefined") return;
+
+  if (!container) return;
 
   const cfg = SiteConfig.get();
-  if (!cfg) return;
 
-  if (!Array.isArray(cfg.eventsArchive)) cfg.eventsArchive = [];
+  if (!Array.isArray(cfg.eventsArchive)) {
+    cfg.eventsArchive = [];
+  }
 
   container.innerHTML = "";
 
   cfg.eventsArchive.forEach((a, i) => {
+
     const block = document.createElement("div");
+
     block.className = "admin-panel";
-    block.style.marginBottom = "12px";
+
     block.innerHTML = `
-      <h2 style="margin-bottom:10px;">Archive Event #${i + 1}</h2>
+      <h2 style="margin-bottom:10px;">
+        Archive Event #${i + 1}
+      </h2>
 
       <label>Title</label>
       <input type="text" data-arc-title="${i}" value="${escapeAttr(a.title)}">
@@ -37,60 +42,97 @@ function renderArchiveEditor() {
       <label>Description</label>
       <textarea rows="3" data-arc-desc="${i}">${escapeAttr(a.desc || "")}</textarea>
 
-      <label>Image filename / path</label>
-      <input type="text" data-arc-image="${i}" value="${escapeAttr(a.image || "")}" placeholder="pastEvent1.jpg">
+      <label>Archive Image</label>
+      <input type="file" class="archive-image" accept="image/*">
 
-      <button type="button" class="btn" data-remove-arc="${i}" style="margin-top:8px;background:#444;color:#fff;">Remove</button>
+      <img
+        src="${a.image || ""}"
+        class="archive-preview"
+        style="width:100%;max-width:260px;border-radius:10px;margin-top:10px;border:1px solid var(--primary);"
+      >
+
+      <button
+        type="button"
+        class="btn"
+        data-remove-arc="${i}"
+        style="margin-top:12px;background:#444;color:#fff;"
+      >
+        Remove
+      </button>
     `;
 
     container.appendChild(block);
+
+    const fileInput = block.querySelector(".archive-image");
+    const preview = block.querySelector(".archive-preview");
+
+    fileInput.addEventListener("change", async (e) => {
+
+      const file = e.target.files[0];
+
+      if (!file) return;
+
+      const base64 = await fileToBase64(file);
+
+      preview.src = base64;
+    });
   });
 
   container.querySelectorAll("[data-remove-arc]").forEach((btn) => {
+
     btn.addEventListener("click", () => {
+
       syncArchiveToConfig();
+
       const cfg = SiteConfig.get();
-      if (!cfg?.eventsArchive) return;
-      const i = Number(btn.getAttribute("data-remove-arc"));
+
+      const i = Number(btn.dataset.removeArc);
+
       cfg.eventsArchive.splice(i, 1);
+
       renderArchiveEditor();
     });
   });
 }
 
 function collectArchive() {
+
   const titles = document.querySelectorAll("[data-arc-title]");
+
   return Array.from(titles).map((el) => {
-    const i = el.getAttribute("data-arc-title");
+
+    const block = el.closest(".admin-panel");
+
+    const i = el.dataset.arcTitle;
+
     return {
       title: el.value.trim(),
       desc: document.querySelector(`[data-arc-desc="${i}"]`)?.value.trim() || "",
-      image: document.querySelector(`[data-arc-image="${i}"]`)?.value.trim() || "",
+      image: block.querySelector(".archive-preview")?.src || "",
     };
   });
 }
 
 function bindArchiveAddButton() {
-  const addBtn = document.getElementById("add-archive-event");
-  if (!addBtn) return;
 
-  if (addBtn.dataset.bound === "1") return;
+  const addBtn = document.getElementById("add-archive-event");
+
+  if (!addBtn || addBtn.dataset.bound === "1") return;
+
   addBtn.dataset.bound = "1";
 
-  addBtn.addEventListener("click", async () => {
-    await SiteConfig.load();
+  addBtn.addEventListener("click", () => {
 
     const cfg = SiteConfig.get();
-    if (!cfg) {
-      alert("Site configuration is not loaded. Please refresh the page and sign in again.");
-      return;
-    }
 
     syncArchiveToConfig();
 
-    if (!Array.isArray(cfg.eventsArchive)) cfg.eventsArchive = [];
+    cfg.eventsArchive.push({
+      title: "New Archive Event",
+      desc: "",
+      image: "",
+    });
 
-    cfg.eventsArchive.push({ title: "New Archive Event", desc: "", image: "" });
     renderArchiveEditor();
   });
 }
